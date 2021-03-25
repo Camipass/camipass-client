@@ -1,0 +1,24 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/camipass-client/node_modules
+.pnp
+.pnp.js
+
+# testing
+/camipass-client/coverage
+
+# production
+/camipass-client/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+/camipass-client/npm-debug.log*
+/camipass-client/yarn-debug.log*
+/camipass-client/yarn-error.log*
+node_modules

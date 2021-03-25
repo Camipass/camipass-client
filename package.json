@@ -1,5 +1,7 @@
 {
   "name": "camipass-client",
+  "description": "A beautiful chat app",
+  "author": "Carmine Conversano, Mirko de Cillis",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -43,5 +45,9 @@
   "devDependencies": {
     "bulma": "^0.9.2",
     "node-sass": "^5.0.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Camipass/camipass-client/issues"
+  },
+  "homepage": "https://github.com/Camipass/camipass-client#readme"
 }

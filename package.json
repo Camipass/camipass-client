@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "react": "^17.0.2"
+    "bulma-start": "^0.0.4",
+    "generator-react-templates": "^0.0.6",
+    "react": "^17.0.2",
+    "react-templates": "^0.6.3"
   }
 }

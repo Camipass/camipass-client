@@ -1,6 +1,5 @@
 import React from 'react';
 import Square from './square.component';
-import '../index.css';
 
 export default class Board extends React.Component {
     constructor(props) {

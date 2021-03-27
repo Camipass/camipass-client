@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './components/game.component';
+import App from './config/route';
 import './index.css';
 
 ReactDOM.render(
-  <Game />,
+  <App />,
   document.getElementById('root')
 );

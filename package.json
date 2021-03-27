@@ -2,6 +2,7 @@
   "name": "camipass-client",
   "description": "A beautiful chat app",
   "author": "Carmine Conversano, Mirko de Cillis",
+  "homepage": "http://localhost",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-
     "css-build": "node-sass --omit-source-map-url src/style/style.scss src/style/style.css",
     "css-watch": "npm run css-build -- --watch",
     "css-start": "npm run css-watch"
@@ -48,6 +48,5 @@
   },
   "bugs": {
     "url": "https://github.com/Camipass/camipass-client/issues"
-  },
-  "homepage": "https://github.com/Camipass/camipass-client#readme"
+  }
 }

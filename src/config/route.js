@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 
 import ProvideAuth from "./auth";
-import Home from "../components/home";
-import Login from "../components/login";
-import Signin from "../components/signin";
-import Rooms from "../components/rooms";
+import Home from "../pages/home";
+import Login from "../pages/login";
+import Signin from "../pages/signin";
+import Rooms from "../pages/rooms";
 
 export default function App() {
     return (
@@ -34,8 +34,6 @@ export default function App() {
                         </ul>
                     </nav>
 
-                    {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
                     <Switch>
                         <Route path="/rooms">
                             <Rooms />

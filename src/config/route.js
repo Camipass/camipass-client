@@ -11,28 +11,14 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import Signin from "../pages/signin";
 import Rooms from "../pages/rooms";
+import NavBar from "../components/navbar";
 
 export default function App() {
     return (
         <ProvideAuth>
             <Router>
                 <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/rooms">Room</Link>
-                            </li>
-                            <li>
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li>
-                                <Link to="/signin">Sign In</Link>
-                            </li>
-                        </ul>
-                    </nav>
+                    <NavBar/>
 
                     <Switch>
                         <Route path="/rooms">

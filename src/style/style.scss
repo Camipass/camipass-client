@@ -11,31 +11,48 @@ $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 
-$primary-color: #F95F72;
-$secondary-color: #FDA806;
-$bg-primary: #2F3136;
-$bg-secondary: #202225;
-$font-color: #FDFFFC;
+
 
 // Update Bulma's global variables
 $family-sans-serif: "Ubuntu", "Nunito", sans-serif;
+$dark: #393B41;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$text: $font-color;
-$primary: $primary-color;
+$text: #FDFFFC;
+$primary: #F95F72;
+$secondary: #fda806;
 $link: $primary;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
-$body-background-color: $bg-primary;
+$body-background-color: #2F3136;
+$bg-secondary: #202225;
+$navbar-background-color: $dark;
+$navbar-padding-vertical: 2rem;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
 
+.nav-button {
+  @extend .button;
+  border-radius: 2em !important;
+  margin-right: 2em;
+  align-self: center;
+  max-width: 8em!important;
+}
+.navbar-item { text-align: center !important; }
+.is-secondary.nav-button {  color: $secondary !important; }
+.is-secondary.nav-button, is-primary.nav-button { font-weight: bold; }
+@media screen and (max-width: 1024px) {
+  .nav-button { margin: auto; margin-top: 1em; }
+}
+
+
 .labelform {
   @extend .label;
   color: $text !important;
+  font-weight: bold;
 }
 
 .iconField {
@@ -44,6 +61,8 @@ $input-shadow: none;
   margin: 0.2em 0.5em;
   transform: scale(0.8);
 }
+
+
 
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";

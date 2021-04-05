@@ -19,7 +19,9 @@ $grey-light: $beige-light;
 $text: #FDFFFC;
 $primary: #F95F72;
 $secondary: #fda806;
-$link: $primary;
+$success: $secondary;
+$link: $secondary;
+$link-hover: $text;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -40,8 +42,7 @@ $input-shadow: none;
   max-width: 8em!important;
 }
 .navbar-item { text-align: center !important; }
-.is-secondary.nav-button {  color: $secondary !important; }
-.is-secondary.nav-button, is-primary.nav-button { font-weight: bold; }
+.is-success.nav-button, is-primary.nav-button { font-weight: bold; }
 @media screen and (max-width: 1024px) {
   .nav-button { margin: auto; margin-top: 1em; }
 }

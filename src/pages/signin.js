@@ -5,6 +5,7 @@ import {Circle} from "react-color/lib/components/circle/Circle";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
 import '../style/style.css';
+import {useAuth} from "../config/auth";
 
 export default class Signin extends React.Component {
     defaultForm = {
@@ -33,43 +34,8 @@ export default class Signin extends React.Component {
 
     submit() {
         document.getElementById('submitSignin').disabled = true;
-
-        User.signin(this.state)
-            .then(res => {
-                swal.fire({
-                    titleText: "Registrazione completata!",
-                    text: "Benvenuto nel mondo Camipass!",
-                    icon: "success",
-                    background: "#393B41",
-                    confirmButtonColor: '#F95F72'
-                })
-                    .then(() => window.location = "/");
-            })
-            .catch(err => {
-                if (err.response.status === 410)
-                    swal.fire({
-                        titleText: "Username già esistente",
-                        text: "Qualcuno è arrivato prima di te :-/",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else if (err.response.status === 411)
-                    swal.fire({
-                        title: "Email già esistente",
-                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else swal.fire({
-                        titleText: "Qualcosa è andato storto :-/",
-                        text: "Aggiorna la pagina e riprova.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-            });
+        let auth = useAuth();
+        auth.signup();
         document.getElementById('submitSignin').disabled = false;
     }
 
@@ -89,7 +55,7 @@ export default class Signin extends React.Component {
                             <div className="field">
                                 <label className="is-one-third labelform" htmlFor="username"> Username </label>
                                 <div className="control has-icons-left">
-                                    <input className="input is-small is-7" name="username" id="username"
+                                    <input className="input is-7" name="username" id="username"
                                            value={this.state.username}
                                            onChange={this.onInputChange.bind(this)}/>
                                     <span className="iconField is-left">
@@ -100,7 +66,7 @@ export default class Signin extends React.Component {
                             <div className="field">
                                 <label className="is-one-third labelform" htmlFor="email"> Email </label>
                                 <div className="control has-icons-left">
-                                    <input className="input is-small" name="email" id="email" type="email"
+                                    <input className="input" name="email" id="email" type="email"
                                            value={this.state.email}
                                            onChange={this.onInputChange.bind(this)}/>
                                     <span className="iconField is-left">
@@ -111,7 +77,7 @@ export default class Signin extends React.Component {
                             <div className="field">
                                 <label className="is-one-third labelform" htmlFor="password"> Password </label>
                                 <div className="control has-icons-left">
-                                    <input className="input is-small" name="password" id="password" type="password"
+                                    <input className="input" name="password" id="password" type="password"
                                            value={this.state.password}
                                            onChange={this.onInputChange.bind(this)}/>
                                     <span className="iconField is-left">

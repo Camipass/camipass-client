@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import { ProvideAuth } from "./auth";
+import PrivateRoute from "./privateRoute";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Signin from "../pages/signin";
@@ -35,12 +36,12 @@ export default function App() {
                         <Route path="/">
                             <Home />
                         </Route>
-                        <Route path="/account">
+                        <PrivateRoute path="/account">
                             <Account />
-                        </Route>
-                        <Route path="/signout">
+                        </PrivateRoute>
+                        <PrivateRoute path="/signout">
                             <Signout />
-                        </Route>
+                        </PrivateRoute>
                     </Switch>
                 </div>
             </Router>

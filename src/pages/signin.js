@@ -1,9 +1,10 @@
 import React from 'react';
+import swal from "sweetalert2";
+import { User } from "../services/user";
 import {Circle} from "react-color/lib/components/circle/Circle";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
 import '../style/style.css';
-import {Switch} from "react-router-dom";
 
 export default class Signin extends React.Component {
     defaultForm = {
@@ -31,14 +32,26 @@ export default class Signin extends React.Component {
     };
 
     submit() {
-        console.log("clicked!");
-    }
+        document.getElementById('submitSignin').disabled = true;
 
-    resetForm(event) {
-        this.setState(this.defaultForm);
+        User.signin(this.state)
+            .then(res => {
+                swal.fire("Registrazione completata!", "Benvenuto nel mondo Camipass!", "success")
+                    .then(() => window.location = "/");
+            })
+            .catch(err => {
+                if (err.response.status === 410) swal.fire("Username già esistente", "Qualcuno è arrivato prima di te :-/", "error");
+                else if (err.response.status === 411) swal.fire("Email già esistente", "L'indirizzo email è stato già usato. Prova a entrare con quella email.", "error");
+                else swal.fire("Qualcosa è andato storto :-/", "Aggiorna la pagina e riprova.", "error");
+            });
+        document.getElementById('submitSignin').disabled = false;
     }
 
     render() {
+        const {email, password, username} = this.state;
+        const enabled = email.length > 0 &&
+                        password.length > 8 &&
+                        username.length > 0;
         return (
             <div className="columns" style={{paddingTop: "2em"}}>
                 <div className="column is-3">
@@ -97,11 +110,12 @@ export default class Signin extends React.Component {
                             <div className="field is-grouped is-grouped-centered">
                                 <p className="control">
                                     <input className="button is-primary" style={{margin: "auto"}}
-                                           type="button" value="Registrati!"
+                                           type="button" value="Registrati!" id="submitSignin"
+                                           disabled={!enabled}
                                            onClick={this.submit.bind(this)} />
                                 </p>
                                 <p className="control">
-                                    <input type="button" value="Reset" className="button is-light" onClick={ () => this.setState(this.defaultForm) }/>
+                                    <input type="button" value="Reset" className="button is-light" onClick={ () => this.setState(this.defaultForm).bind(this) }/>
                                 </p>
 
                             </div>

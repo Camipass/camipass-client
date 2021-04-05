@@ -25,6 +25,10 @@
     margin-top: 1em;
   }
 }
+#swal2-title, #swal2-content {
+  color: #FDFFFC;
+}
+
 .labelform {
   color: #FDFFFC !important;
   font-weight: bold;

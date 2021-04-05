@@ -11,8 +11,6 @@ $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 
-
-
 // Update Bulma's global variables
 $family-sans-serif: "Ubuntu", "Nunito", sans-serif;
 $dark: #393B41;
@@ -48,7 +46,9 @@ $input-shadow: none;
   .nav-button { margin: auto; margin-top: 1em; }
 }
 
-
+#swal2-title, #swal2-content {
+  color: $text;
+}
 .labelform {
   @extend .label;
   color: $text !important;

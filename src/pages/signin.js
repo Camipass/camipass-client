@@ -36,13 +36,39 @@ export default class Signin extends React.Component {
 
         User.signin(this.state)
             .then(res => {
-                swal.fire("Registrazione completata!", "Benvenuto nel mondo Camipass!", "success")
+                swal.fire({
+                    titleText: "Registrazione completata!",
+                    text: "Benvenuto nel mondo Camipass!",
+                    icon: "success",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                })
                     .then(() => window.location = "/");
             })
             .catch(err => {
-                if (err.response.status === 410) swal.fire("Username già esistente", "Qualcuno è arrivato prima di te :-/", "error");
-                else if (err.response.status === 411) swal.fire("Email già esistente", "L'indirizzo email è stato già usato. Prova a entrare con quella email.", "error");
-                else swal.fire("Qualcosa è andato storto :-/", "Aggiorna la pagina e riprova.", "error");
+                if (err.response.status === 410)
+                    swal.fire({
+                        titleText: "Username già esistente",
+                        text: "Qualcuno è arrivato prima di te :-/",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else if (err.response.status === 411)
+                    swal.fire({
+                        title: "Email già esistente",
+                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else swal.fire({
+                        titleText: "Qualcosa è andato storto :-/",
+                        text: "Aggiorna la pagina e riprova.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
             });
         document.getElementById('submitSignin').disabled = false;
     }

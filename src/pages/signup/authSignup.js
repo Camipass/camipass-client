@@ -1,10 +1,10 @@
 import React from "react";
-import Signin from "./signin";
+import Signup from "./signup";
 import {useAuth} from "../../app/auth";
 
-export default function AuthSignin() {
+export default function AuthSignup() {
     const auth = useAuth();
     return (
-        <Signin auth={auth} />
+        <Signup auth={auth} />
     );
 }

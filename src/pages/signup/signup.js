@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
 import '../../style/style.css';
 
-export default class Signin extends React.Component {
+export default class Signup extends React.Component {
     defaultForm = {
         username: '',
         email: '',
@@ -31,9 +31,9 @@ export default class Signin extends React.Component {
 
     submit() {
         const {email, password, username, color} = this.state;
-        document.getElementById('submitSignin').disabled = true;
+        document.getElementById('submitSignup').disabled = true;
         this.props.auth.signup(username, email, password, color);
-        document.getElementById('submitSignin').disabled = false;
+        document.getElementById('submitSignup').disabled = false;
     }
 
     render() {
@@ -48,7 +48,7 @@ export default class Signin extends React.Component {
                 </div>
                 <div className="column columns is-8 has-text-centered is-centered">
                     <div className="column is-7">
-                        <form id="signinForm" name="signinForm">
+                        <form id="signupForm" name="signupForm">
                             <div className="field">
                                 <label className="is-one-third labelform" htmlFor="username"> Username </label>
                                 <div className="control has-icons-left">
@@ -99,7 +99,7 @@ export default class Signin extends React.Component {
                             <div className="field is-grouped is-grouped-centered">
                                 <p className="control">
                                     <input className="button is-primary" style={{margin: "auto"}}
-                                           type="button" value="Registrati!" id="submitSignin"
+                                           type="button" value="Registrati!" id="submitSignup"
                                            disabled={!enabled}
                                            onClick={this.submit.bind(this)} />
                                 </p>

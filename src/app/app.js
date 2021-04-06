@@ -9,7 +9,7 @@ import { ProvideAuth } from "./auth";
 import PrivateRoute from "./privateRoute";
 import Home from "../pages/home";
 import AuthLogin from "../pages/login/authLogin";
-import AuthSignin from "../pages/signin/authSignin";
+import AuthSignup from "../pages/signup/authSignup";
 import Rooms from "../pages/rooms";
 import Account from "../pages/account";
 
@@ -29,8 +29,8 @@ export default function App() {
                         <Route path="/login">
                             <AuthLogin />
                         </Route>
-                        <Route path="/signin">
-                            <AuthSignin />
+                        <Route path="/signup">
+                            <AuthSignup />
                         </Route>
                         <Route path="/">
                             <Home />

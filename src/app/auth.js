@@ -80,7 +80,7 @@ function useProvideAuth() {
             password: password,
             color: color
         }
-        return User.signin(user)
+        return User.signup(user)
             .then(response => {
                 let user = {
                     username: response.data.username,

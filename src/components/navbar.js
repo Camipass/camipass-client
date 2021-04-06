@@ -35,8 +35,8 @@ export default function NavBar() {
                     </div>
                 ) : (
                     <div className="navbar-end">
-                        <Link className="navbar-item nav-button is-primary" to="/login">Login</Link>
-                        <Link className="navbar-item nav-button is-success" to="/signin">Sign In</Link>
+                        <Link className="navbar-item nav-button is-primary" to="/login">Log In</Link>
+                        <Link className="navbar-item nav-button is-success" to="/signup">Sign Up</Link>
                     </div>
                 )
                 }

@@ -94,7 +94,8 @@ function useProvideAuth() {
                     confirmButtonColor: '#F95F72'
                 }).then(() => {
                     setUser(user);
-                    window.location = "/";
+                    // TODO: redirect non fa salvare user
+                    // window.location = "/";
                 });
 
                 return user;

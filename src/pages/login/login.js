@@ -1,9 +1,7 @@
 import React from 'react';
-import '../style/style.css';
+import '../../style/style.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
-import {User} from "../services/user";
-import swal from "sweetalert2";
 import {Link} from "react-router-dom";
 
 export default class Login extends React.Component {
@@ -22,44 +20,9 @@ export default class Login extends React.Component {
     }
 
     submit() {
+        const {email, password} = this.state;
         document.getElementById('submitLogin').disabled = true;
-
-        User.login(this.state)
-            .then(res => {
-                swal.fire({
-                    titleText: "Registrazione completata!",
-                    text: "Benvenuto nel mondo Camipass!",
-                    icon: "success",
-                    background: "#393B41",
-                    confirmButtonColor: '#F95F72'
-                })
-                    .then(() => window.location = "/");
-            })
-            .catch(err => {
-                if (err.response.status === 410)
-                    swal.fire({
-                        titleText: "Username già esistente",
-                        text: "Qualcuno è arrivato prima di te :-/",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else if (err.response.status === 411)
-                    swal.fire({
-                        title: "Email già esistente",
-                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else swal.fire({
-                        titleText: "Qualcosa è andato storto :-/",
-                        text: "Aggiorna la pagina e riprova.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-            });
+        this.props.auth.signin(email, password);
         document.getElementById('submitLogin').disabled = false;
     }
 

@@ -1,11 +1,8 @@
 import React from 'react';
-import swal from "sweetalert2";
-import { User } from "../services/user";
 import {Circle} from "react-color/lib/components/circle/Circle";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
-import '../style/style.css';
-import {useAuth} from "../config/auth";
+import '../../style/style.css';
 
 export default class Signin extends React.Component {
     defaultForm = {
@@ -33,16 +30,16 @@ export default class Signin extends React.Component {
     };
 
     submit() {
+        const {email, password, username, color} = this.state;
         document.getElementById('submitSignin').disabled = true;
-        let auth = useAuth();
-        auth.signup();
+        this.props.auth.signup(username, email, password, color);
         document.getElementById('submitSignin').disabled = false;
     }
 
     render() {
         const {email, password, username} = this.state;
         const enabled = email.length > 0 &&
-                        password.length > 8 &&
+                        password.length >= 8 &&
                         username.length > 0;
         return (
             <div className="columns" style={{paddingTop: "2em"}}>

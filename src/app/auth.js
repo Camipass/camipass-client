@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext } from "react";
 import {User} from "../services/user";
 import swal from "sweetalert2";
+import {parseJwt} from "../components/utils";
 
 const authContext = createContext();
 
@@ -28,9 +29,46 @@ function useProvideAuth() {
             email: email,
             password: password
         };
-        return User.login(user).then(response => {
-                setUser(response.user);
-                return response.user;
+        return User.login(user)
+            .then(response => {
+                let user = parseJwt(response.data);
+                swal.fire({
+                    titleText: "Login effettuato!",
+                    text: "Bentornato! Ci eri mancato :'(",
+                    icon: "success",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                }).then(() => {
+                    setUser(user);
+                    // window.location = "/";
+                });
+
+                return user;
+            })
+            .catch(err => {
+                if (err.response.status === 410)
+                    swal.fire({
+                        titleText: "Username già esistente",
+                        text: "Qualcuno è arrivato prima di te :-/",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else if (err.response.status === 411)
+                    swal.fire({
+                        title: "Email già esistente",
+                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else swal.fire({
+                        titleText: "Qualcosa è andato storto :-/",
+                        text: "Aggiorna la pagina e riprova.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
             });
     };
 
@@ -43,16 +81,22 @@ function useProvideAuth() {
         }
         return User.signin(user)
             .then(response => {
+                let user = {
+                    username: response.data.username,
+                    color: response.data.color
+                }
                 swal.fire({
                     titleText: "Registrazione completata!",
                     text: "Benvenuto nel mondo Camipass!",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
+                }).then(() => {
+                    setUser(user);
+                    window.location = "/";
                 });
-                setUser(response.user);
-                window.location = "/"
-                return response.user;
+
+                return user;
             })
             .catch(err => {
                 if (err.response.status === 410)

@@ -8,8 +8,8 @@ import {
 import { ProvideAuth } from "./auth";
 import PrivateRoute from "./privateRoute";
 import Home from "../pages/home";
-import Login from "../pages/login";
-import Signin from "../pages/signin";
+import AuthLogin from "../pages/login/authLogin";
+import AuthSignin from "../pages/signin/authSignin";
 import Rooms from "../pages/rooms";
 import Account from "../pages/account";
 import Signout from "../pages/signout";
@@ -28,10 +28,10 @@ export default function App() {
                             <Rooms />
                         </Route>
                         <Route path="/login">
-                            <Login />
+                            <AuthLogin />
                         </Route>
                         <Route path="/signin">
-                            <Signin />
+                            <AuthSignin />
                         </Route>
                         <Route path="/">
                             <Home />

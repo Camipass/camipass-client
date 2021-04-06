@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/style.css';
 import { Link } from "react-router-dom";
-import { useAuth } from "../config/auth";
+import { useAuth } from "../app/auth";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -30,7 +30,7 @@ export default function NavBar() {
                 { auth.user ? (
                     <div className="navbar-end">
                         <Link className="navbar-item" to="/account">
-                            <FontAwesomeIcon icon={faUser} size="2x" style={{color: auth.user.color}}/> ({auth.user.email})</Link>
+                            <FontAwesomeIcon icon={faUser} size="1x" style={{color: auth.user.color}}/>&nbsp; {auth.user.username} &nbsp;</Link>
                         <Link className="navbar-item nav-button is-success" to="/signout">Disconnetti</Link>
                     </div>
                 ) : (

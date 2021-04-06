@@ -22,8 +22,8 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
-    // Wrap any Firebase methods we want to use making sure ...
-    // ... to save the user to state.
+    //TODO: lettura cookie-localstorage
+
     const signin = (email, password) => {
         let user = {
             email: email,
@@ -40,6 +40,7 @@ function useProvideAuth() {
                     confirmButtonColor: '#F95F72'
                 }).then(() => {
                     setUser(user);
+                    // TODO: redirect non fa salvare user
                     // window.location = "/";
                 });
 
@@ -126,12 +127,20 @@ function useProvideAuth() {
     };
 
     const signout = () => {
-        // return firebase
-        //     .auth()
-        //     .signOut()
-        //     .then(() => {
-        //         setUser(false);
-        //     });
+
+        return swal.fire({
+            titleText: "Logout effettuato!",
+            text: "Sempre a disposizione per servirti :)",
+            icon: "success",
+            background: "#393B41",
+            confirmButtonColor: '#F95F72'
+        }).then(() => {
+            // TODO: pulire token
+            setTimeout(() => {
+                setUser(false);
+            }, 1000);
+            window.location = "/";
+        });
     };
 
     const sendPasswordResetEmail = email => {

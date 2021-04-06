@@ -6,6 +6,7 @@ export default function PrivateRoute({ children, ...rest }) {
     let auth = useAuth();
     return (
         <Route
+            //TODO: redirect come prop
             {...rest}
             render={({ location }) =>
                 auth.user ? (

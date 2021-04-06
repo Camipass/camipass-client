@@ -53,7 +53,7 @@ export default class Signin extends React.Component {
                                 <label className="is-one-third labelform" htmlFor="username"> Username </label>
                                 <div className="control has-icons-left">
                                     <input className="input is-7" name="username" id="username"
-                                           value={this.state.username}
+                                           value={this.state.username} required={true}
                                            onChange={this.onInputChange.bind(this)}/>
                                     <span className="iconField is-left">
                                     <FontAwesomeIcon icon={faUser} size="2x"/>
@@ -64,7 +64,7 @@ export default class Signin extends React.Component {
                                 <label className="is-one-third labelform" htmlFor="email"> Email </label>
                                 <div className="control has-icons-left">
                                     <input className="input" name="email" id="email" type="email"
-                                           value={this.state.email}
+                                           value={this.state.email} required={true}
                                            onChange={this.onInputChange.bind(this)}/>
                                     <span className="iconField is-left">
                                     <FontAwesomeIcon icon={faEnvelope} size="2x"/>
@@ -75,7 +75,7 @@ export default class Signin extends React.Component {
                                 <label className="is-one-third labelform" htmlFor="password"> Password </label>
                                 <div className="control has-icons-left">
                                     <input className="input" name="password" id="password" type="password"
-                                           value={this.state.password}
+                                           value={this.state.password} required={true}
                                            onChange={this.onInputChange.bind(this)}/>
                                     <span className="iconField is-left">
                                     <FontAwesomeIcon icon={faKey} size="2x"/>

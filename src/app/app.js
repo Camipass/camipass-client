@@ -12,7 +12,6 @@ import AuthLogin from "../pages/login/authLogin";
 import AuthSignin from "../pages/signin/authSignin";
 import Rooms from "../pages/rooms";
 import Account from "../pages/account";
-import Signout from "../pages/signout";
 
 import NavBar from "../components/navbar";
 
@@ -38,9 +37,6 @@ export default function App() {
                         </Route>
                         <PrivateRoute path="/account">
                             <Account />
-                        </PrivateRoute>
-                        <PrivateRoute path="/signout">
-                            <Signout />
                         </PrivateRoute>
                     </Switch>
                 </div>

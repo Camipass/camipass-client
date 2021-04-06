@@ -14,12 +14,12 @@ export default function NavBar() {
                 <a className="navbar-item" href="/">
                     <img src={"/icons/logo/logo_large.png"} alt="Camipass Logo"/>
                 </a>
-                <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false"
-                   data-target="navbarBasicExample" href="javascript:void(0);">
+                <span role="button" className="navbar-burger" aria-label="menu" aria-expanded="false"
+                   data-target="navbarBasicExample" >
                     <span aria-hidden="true"/>
                     <span aria-hidden="true"/>
                     <span aria-hidden="true"/>
-                </a>
+                </span>
             </div>
 
             <div className="navbar-menu">
@@ -31,7 +31,7 @@ export default function NavBar() {
                     <div className="navbar-end">
                         <Link className="navbar-item" to="/account">
                             <FontAwesomeIcon icon={faUser} size="1x" style={{color: auth.user.color}}/>&nbsp; {auth.user.username} &nbsp;</Link>
-                        <Link className="navbar-item nav-button is-success" to="/signout">Disconnetti</Link>
+                        <span className="navbar-item nav-button is-success" onClick={() => auth.signout()}>Disconnetti</span>
                     </div>
                 ) : (
                     <div className="navbar-end">

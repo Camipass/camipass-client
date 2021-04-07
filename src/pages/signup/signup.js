@@ -44,7 +44,7 @@ export default class Signup extends React.Component {
         return (
             <div className="columns" style={{paddingTop: "2em"}}>
                 <div className="column is-3">
-                {/*TODO: aggiungere minchiate in fase di registrazione*/}
+                {/*TODO: aggiungere robe in fase di registrazione*/}
                 </div>
                 <div className="column columns is-8 has-text-centered is-centered">
                     <div className="column is-7">

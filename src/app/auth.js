@@ -41,7 +41,7 @@ function useProvideAuth() {
         Cookies.remove(process.env.REACT_APP_COOKIENAME);
     }
 
-    //TODO: lettura cookie-localstorage
+    //TODO: lettura localstorage
 
     const signin = (email, password) => {
         let user = {
@@ -59,7 +59,6 @@ function useProvideAuth() {
                     confirmButtonColor: '#F95F72'
                 }).then((res) => {
                     setUser(user);
-                    // TODO: redirect non fa salvare user
                     setCookie(response.data)
                     window.location = "/";
                 });
@@ -153,7 +152,6 @@ function useProvideAuth() {
             background: "#393B41",
             confirmButtonColor: '#F95F72'
         }).then(() => {
-            // TODO: pulire token
             setUser(false);
             removeCookie();
             window.location = "/";

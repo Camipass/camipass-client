@@ -7,7 +7,6 @@ export default function AuthLogin() {
     let auth = useAuth();
     const component = auth.user ? (
             <Redirect from="/login" to='/' />
-            // TODO: non puoi fare login se hai già fatto il login
         ) : (
             <Login auth={auth} />
         );

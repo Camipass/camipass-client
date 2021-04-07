@@ -23,19 +23,13 @@ export default function App() {
                     <NavBar/>
 
                     <Switch>
-                        <Route path="/rooms">
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/login" component={AuthLogin} />
+                        <Route exact path="/signup" component={AuthSignup} />
+                        <PrivateRoute exact path="/rooms">
                             <Rooms />
-                        </Route>
-                        <Route path="/login">
-                            <AuthLogin />
-                        </Route>
-                        <Route path="/signup">
-                            <AuthSignup />
-                        </Route>
-                        <Route path="/">
-                            <Home />
-                        </Route>
-                        <PrivateRoute path="/account">
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/account">
                             <Account />
                         </PrivateRoute>
                     </Switch>

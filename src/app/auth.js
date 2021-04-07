@@ -22,6 +22,9 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
+    const setCookie = () => {
+
+    }
     //TODO: lettura cookie-localstorage
 
     const signin = (email, password) => {

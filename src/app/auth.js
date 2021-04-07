@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext } from "react";
 import {User} from "../services/user";
 import swal from "sweetalert2";
 import {parseJwt} from "../components/utils";
+import Cookies from 'js-cookie';
 
 const authContext = createContext();
 
@@ -22,9 +23,24 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
-    const setCookie = () => {
-
+    const setCookie = (jwt) => {
+        Cookies.set(process.env.REACT_APP_COOKIENAME, jwt);
+        readCookieAndSetUser();
     }
+
+    const readCookieAndSetUser = () => {
+        let jwt = Cookies.get(process.env.REACT_APP_COOKIENAME);
+        if (jwt !== "") {
+            setUser(parseJwt(jwt));
+        } else {
+            setUser(false);
+        }
+    }
+
+    const removeCookie = () => {
+        Cookies.remove(process.env.REACT_APP_COOKIENAME);
+    }
+
     //TODO: lettura cookie-localstorage
 
     const signin = (email, password) => {
@@ -41,12 +57,12 @@ function useProvideAuth() {
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
-                }).then(() => {
+                }).then((res) => {
                     setUser(user);
                     // TODO: redirect non fa salvare user
-                    // window.location = "/";
+                    setCookie(response.data)
+                    window.location = "/";
                 });
-
                 return user;
             })
             .catch(err => {
@@ -91,14 +107,12 @@ function useProvideAuth() {
                 }
                 swal.fire({
                     titleText: "Registrazione completata!",
-                    text: "Benvenuto nel mondo Camipass!",
+                    text: "Benvenuto nel mondo Camipass!\nEffettua il login per iniziare.",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
                 }).then(() => {
-                    setUser(user);
-                    // TODO: redirect non fa salvare user
-                    // window.location = "/";
+                    window.location = "/";
                 });
 
                 return user;
@@ -140,9 +154,8 @@ function useProvideAuth() {
             confirmButtonColor: '#F95F72'
         }).then(() => {
             // TODO: pulire token
-            setTimeout(() => {
-                setUser(false);
-            }, 1000);
+            setUser(false);
+            removeCookie();
             window.location = "/";
         });
     };
@@ -172,6 +185,7 @@ function useProvideAuth() {
         signup,
         signout,
         sendPasswordResetEmail,
-        confirmPasswordReset
+        confirmPasswordReset,
+        readCookieAndSetUser
     };
 }

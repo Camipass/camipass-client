@@ -1,8 +1,8 @@
 import React from 'react';
 import '../style/style.css';
 
-export default function Home() {
+export default function PageNotFound() {
     return (
-        <h2>HOME</h2>
+        <h2>PAGENOTFOUND</h2>
     );
 }

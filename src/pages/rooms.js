@@ -19,6 +19,7 @@ export default function Rooms() {
     let auth = useAuth();
 
     useEffect(() => {
+        socket.connect();
         socket.emit("room:join", {
             keyword: roomKeyword,
         });

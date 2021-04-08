@@ -72,13 +72,20 @@ export default function Rooms() {
             <div className="column is-three-fifths">
 
 
-                <div style={{maxHeight: "90%", overflowY: "scroll"}}>
+                <div style={{paddingBottom: "5em"}}>
                     {
                         printMessages()
                     }
                 </div>
-                <form onSubmit={sendMessage}>
-                    <div className="field columns is-fixed-bottom ">
+                <form onSubmit={sendMessage} style={{
+                    position: "fixed",
+                    bottom: "0",
+                    left: "0",
+                    right: "0",
+                    padding: "1em",
+                    backgroundColor: "#393B41"
+                }}>
+                    <div className="field columns">
                         <div className="column is-four-fifths">
                             <input className="input" name="message" id="message" type="text"
                                    value={message} placeholder="Messaggio..."

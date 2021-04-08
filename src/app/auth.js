@@ -67,18 +67,10 @@ function useProvideAuth() {
                 return user;
             })
             .catch(err => {
-                if (err.response.status === 410)
+                if (err.response.status === 401)
                     swal.fire({
-                        titleText: "Username già esistente",
-                        text: "Qualcuno è arrivato prima di te :-/",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else if (err.response.status === 411)
-                    swal.fire({
-                        title: "Email già esistente",
-                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
+                        titleText: "Credenziali errate",
+                        text: "L'email o la password non sono corretti.",
                         icon: "error",
                         background: "#393B41",
                         confirmButtonColor: '#F95F72'

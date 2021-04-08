@@ -8,7 +8,7 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            email: '',
             password: ''
         };
     }
@@ -27,9 +27,12 @@ export default class Login extends React.Component {
     }
 
     render() {
+        const {email, password} = this.state;
+        const enabled = email.length > 0 &&
+            password.length > 0;
         return (
             <div className="columns has-text-centered is-centered" style={{paddingTop: "2em"}}>
-                <div className="column is-5">
+                <div className="column is-5-desktop is-8-mobile">
                     <form id="signinForm" name="signinForm">
                         <div className="field">
                             <label className="is-one-third labelform" htmlFor="email"> Email </label>
@@ -57,6 +60,7 @@ export default class Login extends React.Component {
                             <p className="control" style={{textAlign: "center"}}>
                                 <input className="button is-primary"
                                        type="button" value="Login" id="submitLogin"
+                                       disabled={!enabled}
                                        onClick={this.submit.bind(this)} />
                             </p>
                         </div>

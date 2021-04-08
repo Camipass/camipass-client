@@ -47,7 +47,7 @@ export default class Signup extends React.Component {
                 {/*TODO: aggiungere robe in fase di registrazione*/}
                 </div>
                 <div className="column columns is-8 has-text-centered is-centered">
-                    <div className="column is-7">
+                    <div className="column is-7-desktop is-10-mobile">
                         <form id="signupForm" name="signupForm">
                             <div className="field">
                                 <label className="is-one-third labelform" htmlFor="username"> Username </label>

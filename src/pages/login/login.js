@@ -59,7 +59,6 @@ export default class Login extends React.Component {
                                        type="button" value="Login" id="submitLogin"
                                        onClick={this.submit.bind(this)} />
                             </p>
-
                         </div>
                         <div className="field">
                             <p className="control" style={{textAlign: "right"}}>

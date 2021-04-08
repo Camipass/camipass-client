@@ -35,6 +35,11 @@ export default function Rooms() {
         if (message) {
             socket.emit("room:chat", { keyword: roomKeyword, text: message });
             setMessage("");
+            setMessages(current => [...displayMessages, {
+                username: auth.user.username,
+                color: auth.user.color,
+                text: message
+            }])
         }
     }
 

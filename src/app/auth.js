@@ -4,6 +4,8 @@ import swal from "sweetalert2";
 import {parseJwt} from "../components/utils";
 import Cookies from 'js-cookie';
 
+const { REACT_APP_COOKIENAME } = process.env;
+
 const authContext = createContext();
 
 // Provider component that wraps your app and makes auth object ...
@@ -24,12 +26,12 @@ function useProvideAuth() {
     const [user, setUser] = useState(null);
 
     const setCookie = (jwt) => {
-        Cookies.set(process.env.REACT_APP_COOKIENAME, jwt);
+        Cookies.set(REACT_APP_COOKIENAME, jwt);
         readCookieAndSetUser();
     }
 
     const readCookieAndSetUser = () => {
-        let jwt = Cookies.get(process.env.REACT_APP_COOKIENAME);
+        let jwt = Cookies.get(REACT_APP_COOKIENAME);
         if (jwt !== "") {
             setUser(parseJwt(jwt));
         } else {
@@ -38,7 +40,7 @@ function useProvideAuth() {
     }
 
     const removeCookie = () => {
-        Cookies.remove(process.env.REACT_APP_COOKIENAME);
+        Cookies.remove(REACT_APP_COOKIENAME);
     }
 
     //TODO: lettura localstorage

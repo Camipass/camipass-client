@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Cookies from 'js-cookie';
 import {io} from 'socket.io-client';
 import '../style/style.css';
@@ -23,6 +23,13 @@ export default function Rooms() {
         setMessage(event.target.value);
     }
 
+    const sendMessage = () => {
+        if (message) {
+            socket.emit("room:chat", { keyword: roomKeyword, text: message });
+            setMessage("");
+        }
+    }
+
     let socket = io('http://localhost:8000', {
         withCredentials: true,
         extraHeaders: {
@@ -37,29 +44,32 @@ export default function Rooms() {
         },
     });
 
-    const sendMessage = () => {
-        if (message) {
-            socket.emit("room:chat", { keyword: roomKeyword, text: message });
-            setMessage("");
-        }
-    }
+    useEffect(() => {
+        socket.on('success', function (data) {
 
-    socket.on('success', function (data) {
-
-        socket.emit("room:join", {
-            keyword: roomKeyword,
+            socket.emit("room:join", {
+                keyword: roomKeyword,
+            });
         });
-    });
 
-    socket.on('room:chat', function (msg) {
-        setMessages(current => [
-            ...current,
-            {
-                username: msg.username,
-                color: msg.color,
-                text: msg.text
-            }]);
-        console.log(displayMessages);
+        socket.on('room:chat', function (msg) {
+            // let messages = document.getElementById("chatRoom");
+            // let item = document.createElement('div');
+            // item.innerHTML = `<div style="text-align: ${auth.user.username === msg.username ? "right" : "left"}">
+            //     <span style="color: ${msg.color}">${msg.username}</span>
+            //     <div>${msg.text}</div>
+            // </div>`;
+            // messages.appendChild(item);
+            // window.scrollTo(0, document.body.scrollHeight);
+            setMessages(current => [
+                ...current,
+                {
+                    username: msg.username,
+                    color: msg.color,
+                    text: msg.text
+                }]);
+            console.log(displayMessages);
+        });
     });
 
     const printMessages = () => {
@@ -82,7 +92,7 @@ export default function Rooms() {
             <div className="column is-three-fifths">
 
 
-                <div style={{maxHeight: "90%", overflowY: "scroll"}}>
+                <div style={{maxHeight: "90%", overflowY: "scroll"}} id="chatRoom">
                     {
                         printMessages()
                     }

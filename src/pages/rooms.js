@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import Cookies from 'js-cookie';
-import {io} from 'socket.io-client';
+import React, {useEffect, useState} from 'react';
 import '../style/style.css';
 import {useAuth} from "../app/auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import {socket} from "../services/socket";
 
 export default function Rooms() {
+
     const [message, setMessage] = useState("");
     const [displayMessages, setMessages] = useState([
         {
@@ -15,56 +15,40 @@ export default function Rooms() {
             text: "La chat è appena iniziata. Saluta gli altri! :)"
         }
     ]);
-
-    let auth = useAuth();
     let roomKeyword = "provaStanza1";
+    let auth = useAuth();
+
+    useEffect(() => {
+        socket.emit("room:join", {
+            keyword: roomKeyword,
+        });
+    })
+
+
 
     const writeMessage = (event) => {
         setMessage(event.target.value);
     }
 
-    let socket = io('http://localhost:8000', {
-        withCredentials: true,
-        extraHeaders: {
-            'x-auth-token': Cookies.get(process.env.REACT_APP_COOKIENAME)
-        },
-        transportOptions: {
-            polling: {
-                extraHeaders: {
-                    'x-auth-token': Cookies.get(process.env.REACT_APP_COOKIENAME)
-                }
-            }
-        },
-    });
-
-    const sendMessage = () => {
+    const sendMessage = (event) => {
+        event.preventDefault();
         if (message) {
             socket.emit("room:chat", { keyword: roomKeyword, text: message });
             setMessage("");
         }
     }
 
-    socket.on('success', function (data) {
-
-        socket.emit("room:join", {
-            keyword: roomKeyword,
-        });
-    });
-
     socket.on('room:chat', function (msg) {
-        setMessages(current => [
-            ...current,
-            {
+        setMessages(current => [...displayMessages, {
                 username: msg.username,
                 color: msg.color,
                 text: msg.text
-            }]);
+            }])
         console.log(displayMessages);
     });
 
     const printMessages = () => {
-        let messages = [...displayMessages];
-        return messages.map((msg, i) => {
+        return displayMessages.map((msg, i) => {
             return <div key={i}>
                 <div style={{
                     textAlign: (auth.user.username === msg.username) ?
@@ -87,23 +71,24 @@ export default function Rooms() {
                         printMessages()
                     }
                 </div>
-                <div className="field columns is-fixed-bottom ">
-                    <div className="column is-four-fifths">
-                        <input className="input" name="message" id="message" type="text"
-                               value={message} placeholder="Messaggio..."
-                               onChange={writeMessage}/>
-                    </div>
-                    <div className="column is-one-fifth">
-                        <div className="control has-icons-left">
-                            <input className="input button is-primary" id="sendMessage"
-                                   type="submit" value="Invia" disabled={message.length <= 0}
-                                   onClick={sendMessage}/>
-                            <span className="iconField is-left" style={{paddingTop: "0.25em"}}>
+                <form onSubmit={sendMessage}>
+                    <div className="field columns is-fixed-bottom ">
+                        <div className="column is-four-fifths">
+                            <input className="input" name="message" id="message" type="text"
+                                   value={message} placeholder="Messaggio..."
+                                   onChange={writeMessage}/>
+                        </div>
+                        <div className="column is-one-fifth">
+                            <div className="control has-icons-left">
+                                <input className="input button is-primary" id="sendMessage"
+                                       type="submit" value="Invia" disabled={message.length <= 0}/>
+                                <span className="iconField is-left" style={{paddingTop: "0.25em"}}>
                                     <FontAwesomeIcon icon={faPaperPlane} style={{transform: "scale(1.5)"}}/>
                                 </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

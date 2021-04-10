@@ -20,9 +20,11 @@ export default function Rooms() {
 
     useEffect(() => {
         socket.connect();
-        socket.emit("room:join", {
-            keyword: roomKeyword,
-        });
+        socket.on('connect', () => {
+            socket.emit("room:join", {
+                keyword: roomKeyword,
+            });
+        })
     })
 
 

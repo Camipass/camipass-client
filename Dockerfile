@@ -1,21 +1,21 @@
 FROM node:alpine as builder
 
-WORKDIR '/app'
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+ADD package.json /usr/src/app/package.json
 
-COPY package*.json ./
-RUN npm ci
-COPY . ./
+RUN npm install --silent
+
+ADD . /usr/src/app
 RUN npm run build
 
 FROM nginx:stable-alpine
+RUN rm -rf /etc/nginx/conf.d/*
+COPY nginx.conf /etc/nginx/conf.d/
 
-RUN rm -rf nginx/conf.d/default.conf
-COPY nginx/conf.d/default.conf /etc/nginx/conf.d
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
-# production environment
-FROM nginx:stable-alpine
-COPY --from=builder /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

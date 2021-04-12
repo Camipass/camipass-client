@@ -26,6 +26,12 @@ export default function Rooms() {
                 keyword: roomKeyword,
             });
         })
+
+        return function cleanup() {
+            socket.emit('room:leave', {
+                keyword: roomKeyword,
+            })
+        }
     })
 
     const writeMessage = (event) => {

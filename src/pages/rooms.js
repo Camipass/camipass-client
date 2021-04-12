@@ -20,18 +20,19 @@ export default function Rooms() {
 
     useEffect(() => {
         socket.connect();
-        socket.on('connect', () => {
+        socket.on('success', () => {
             socket.emit("room:join", {
                 keyword: roomKeyword,
             });
         })
-
-        return function cleanup() {
-            socket.emit('room:leave', {
-                keyword: roomKeyword,
-            })
-        }
     })
+
+    useEffect( () => () => {
+        console.log('leaving')
+        socket.emit('room:leave', {
+            keyword: roomKeyword,
+        })
+    }, [] );
 
 
 
@@ -40,6 +41,7 @@ export default function Rooms() {
     }
 
     const sendMessage = (event) => {
+        console.log('Ciao')
         event.preventDefault();
         if (message) {
             socket.emit("room:chat", { keyword: roomKeyword, text: message });

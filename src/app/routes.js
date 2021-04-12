@@ -24,9 +24,9 @@ export default class Routes extends React.Component {
                 <PrivateRoute exact path="/rooms">
                     <Rooms />
                 </PrivateRoute>
-                <PrivateRoute exact path="/account">
-                    <Account />
-                </PrivateRoute>
+                {/*<PrivateRoute exact path="/account">*/}
+                {/*    <Account />*/}
+                {/*</PrivateRoute>*/}
                 <Route path='/404' component={PageNotFound} />
                 <Redirect from='*' to='/404' />
             </Switch>

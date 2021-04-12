@@ -14,8 +14,7 @@ export default function NavBar() {
                 <a className="navbar-item" href="/">
                     <img src={"/icons/logo/logo_large.png"} alt="Camipass Logo"/>
                 </a>
-                <span role="button" className="navbar-burger" aria-label="menu" aria-expanded="false"
-                   data-target="navbarBasicExample" >
+                <span role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
                     <span aria-hidden="true"/>
                     <span aria-hidden="true"/>
                     <span aria-hidden="true"/>

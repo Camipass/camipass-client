@@ -4,9 +4,11 @@ import {useAuth} from "../app/auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
 import {socket} from "../services/socket";
+import RoomHistory from "../components/roomHistory";
 
 export default function Rooms() {
-
+    const [prevRooms, setRooms] = useState([]);
+    const [roomKeyword, setRoomKeyword] = useState("provastanza");
     const [message, setMessage] = useState("");
     const [displayMessages, setMessages] = useState([
         {
@@ -15,7 +17,6 @@ export default function Rooms() {
             text: "La chat è appena iniziata. Saluta gli altri! :)"
         }
     ]);
-    let roomKeyword = "provaStanza1";
     let auth = useAuth();
 
     useEffect(() => {
@@ -26,8 +27,6 @@ export default function Rooms() {
             });
         })
     })
-
-
 
     const writeMessage = (event) => {
         setMessage(event.target.value);
@@ -55,6 +54,16 @@ export default function Rooms() {
         console.log(displayMessages);
     });
 
+    const newRoom = (event) => {
+
+        setRooms(current => [roomKeyword, ...prevRooms]);
+
+    }
+
+    const changeRoomKeyword = (event) => {
+        setRoomKeyword(event.target.value);
+    }
+
     const printMessages = () => {
         return displayMessages.map((msg, i) => {
             return <div key={i}>
@@ -70,8 +79,11 @@ export default function Rooms() {
     }
 
     return (
-        <div className="columns is-text-centered is-centered" style={{paddingTop: "2em"}}>
-            <div className="column is-three-fifths">
+        <div className="columns">
+            <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
+                         onChange={changeRoomKeyword} />
+
+            <div className="column is-two-thirds is-offset-one-third" style={{paddingTop: "2em"}}>
 
 
                 <div style={{paddingBottom: "5em"}}>
@@ -79,32 +91,34 @@ export default function Rooms() {
                         printMessages()
                     }
                 </div>
-                <form onSubmit={sendMessage} style={{
-                    position: "fixed",
-                    bottom: "0",
-                    left: "0",
-                    right: "0",
-                    padding: "1em",
-                    backgroundColor: "#393B41"
-                }}>
-                    <div className="field columns">
-                        <div className="column is-four-fifths">
-                            <input className="input" name="message" id="message" type="text"
-                                   value={message} placeholder="Messaggio..."
-                                   onChange={writeMessage}/>
-                        </div>
-                        <div className="column is-one-fifth">
-                            <div className="control has-icons-left">
-                                <input className="input button is-primary" id="sendMessage"
-                                       type="submit" value="Invia" disabled={message.length <= 0}/>
-                                <span className="iconField is-left" style={{paddingTop: "0.25em"}}>
+
+            </div>
+            <form onSubmit={sendMessage} style={{
+                position: "fixed",
+                minHeight: "4em",
+                bottom: "0",
+                left: "0",
+                right: "0",
+                padding: "1em",
+                backgroundColor: "#393B41"
+            }}>
+                <div className="field columns">
+                    <div className="column is-four-fifths">
+                        <input className="input" name="message" id="message" type="text"
+                               value={message} placeholder="Messaggio..."
+                               onChange={writeMessage}/>
+                    </div>
+                    <div className="column is-one-fifth">
+                        <div className="control has-icons-left">
+                            <input className="input button is-primary" id="sendMessage"
+                                   type="submit" value="Invia" disabled={message.length <= 0}/>
+                            <span className="iconField is-left" style={{paddingTop: "0.25em"}}>
                                     <FontAwesomeIcon icon={faPaperPlane} style={{transform: "scale(1.5)"}}/>
                                 </span>
-                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
     );

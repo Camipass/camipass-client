@@ -61,15 +61,17 @@ export default function Rooms() {
         console.log(displayMessages);
     });
 
-    const newRoom = (event) => {
-
-        setRooms(current => [roomKeyword, ...prevRooms]);
+    const newRoom = (newRoom) => {
+        setRoomKeyword(newRoom);
+        setRooms(current => [newRoom, ...prevRooms]);
 
     }
 
     const changeRoomKeyword = (event) => {
         setRoomKeyword(event.target.value);
     }
+
+    console.log(roomKeyword);
 
     const printMessages = () => {
         return displayMessages.map((msg, i) => {

@@ -34,6 +34,25 @@ $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
 
+*::-webkit-scrollbar {
+  width: 1em;
+}
+.prevroom-side::-webkit-scrollbar {
+  width: 0.25em;
+}
+
+*::-webkit-scrollbar-track {
+  background: $bg-secondary;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: $dark;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: $body-background-color;
+}
+
 .nav-button {
   @extend .button;
   border-radius: 2em !important;
@@ -63,7 +82,26 @@ $input-shadow: none;
   transform: scale(0.8);
 }
 
+.prevroom-side {
+  position: fixed;
+  padding: 0em 1em 2em 0 !important;
+  top: 4em;
+  bottom: 5em;
+  overflow-y: scroll;
+  background-color: $bg-secondary;
+  border-radius: 0 2em 2em 0;
+  -webkit-box-shadow: 5px 0 10px 5px rgba(0,0,0,0.5);
+  -moz-box-shadow: 5px 0 10px 5px rgba(0,0,0,0.5);
+  box-shadow: 5px 0 10px 5px rgba(0,0,0,0.5);
+}
 
+.prevroom {
+  padding: 0.5em 2em;
+  &:hover { cursor: pointer}
+  &:nth-child(odd) {
+    background-color: $body-background-color;
+  }
+}
 
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";

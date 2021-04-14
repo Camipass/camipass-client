@@ -5,6 +5,7 @@ import swal from 'sweetalert2';
 
 export default function PrivateRoute({ children, ...rest }) {
     let auth = useAuth();
+    console.log(auth)
 
     if (!auth.user) {
         swal.fire({

@@ -6,7 +6,9 @@ import Cookies from 'js-cookie';
 
 const { REACT_APP_COOKIENAME } = process.env;
 
-const authContext = createContext();
+const authContext = createContext({
+    user: null
+});
 
 // Provider component that wraps your app and makes auth object ...
 // ... available to any child component that calls useAuth().
@@ -23,7 +25,16 @@ export const useAuth = () => {
 
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
-    const [user, setUser] = useState(null);
+    const getUser = () => {
+        let jwt = Cookies.get(REACT_APP_COOKIENAME);
+        if (jwt !== "") {
+            return parseJwt(jwt);
+        } else {
+            return false;
+        }
+    }
+
+    const [user, setUser] = useState(getUser);
 
     const setCookie = (jwt) => {
         Cookies.set(REACT_APP_COOKIENAME, jwt);
@@ -32,6 +43,7 @@ function useProvideAuth() {
 
     const readCookieAndSetUser = () => {
         let jwt = Cookies.get(REACT_APP_COOKIENAME);
+        console.log(jwt)
         if (jwt !== "") {
             setUser(parseJwt(jwt));
         } else {
@@ -44,7 +56,6 @@ function useProvideAuth() {
     }
 
     //TODO: lettura localstorage
-
     const signin = (email, password) => {
         let user = {
             email: email,

@@ -32,7 +32,7 @@ export default class Login extends React.Component {
             password.length > 0;
         return (
             <div className="columns has-text-centered is-centered" style={{paddingTop: "2em"}}>
-                <div className="column is-5-desktop is-8-mobile">
+                <div className="column is-5-desktop is-8-mobile has-text-centered">
                     <form id="signinForm" name="signinForm">
                         <div className="field">
                             <label className="is-one-third labelform" htmlFor="email"> Email </label>

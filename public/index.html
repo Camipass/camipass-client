@@ -53,6 +53,10 @@
             $(".navbar-burger").toggleClass("is-active");
             $(".navbar-menu").toggleClass("is-active");
           });
+          $(".navbar-item").click(function () {
+            $(".navbar-burger").removeClass("is-active");
+            $(".navbar-menu").removeClass("is-active");
+          });
         });
       </script>
   </body>

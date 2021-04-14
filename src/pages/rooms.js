@@ -7,17 +7,11 @@ import {socket} from "../services/socket";
 import RoomHistory from "../components/roomHistory";
 
 export default function Rooms() {
-    const firstMex = {
-        username: "",
-        color: '#fff',
-        text: "La chat è appena iniziata. Saluta gli altri! :)"
-    };
-
     const [prevRooms, setRooms] = useState([]);
     const [roomKeyword, setRoomKeyword] = useState("");
-    const [currentkeyword, setCurrentKeyword] = useState("camipass-room");
+    const [currentkeyword, setCurrentKeyword] = useState("camipass-world");
     const [message, setMessage] = useState("");
-    const [displayMessages, setMessages] = useState([firstMex]);
+    const [displayMessages, setMessages] = useState([]);
     let auth = useAuth();
 
     useEffect(() => {
@@ -30,11 +24,11 @@ export default function Rooms() {
     })
 
     useEffect( () => () => {
-        console.log('leaving')
+        console.log('leaving');
         socket.emit('room:leave', {
             keyword: currentkeyword,
         });
-    }, []);
+    }, [currentkeyword]);
 
     const writeMessage = (event) => {
         setMessage(event.target.value);
@@ -43,7 +37,7 @@ export default function Rooms() {
     const sendMessage = (event) => {
         event.preventDefault();
         if (message) {
-            socket.emit("room:chat", { keyword: roomKeyword, text: message });
+            socket.emit("room:chat", { keyword: currentkeyword, text: message });
             setMessage("");
             setMessages(current => [...displayMessages, {
                 username: auth.user.username,
@@ -73,7 +67,7 @@ export default function Rooms() {
         setRoomKeyword(newRoom);
         setCurrentKeyword(newRoom);
         setRooms(current => [newRoom, ...prevRooms]);
-        setMessages([firstMex]);
+        setMessages([]);
     }
 
     const changeRoomKeyword = (event) => {
@@ -82,15 +76,17 @@ export default function Rooms() {
 
     const printMessages = () => {
         return displayMessages.map((msg, i) => {
-            return <div key={i}>
-                <div style={{
-                    textAlign: (auth.user.username === msg.username) ?
-                        "right" : "left"
-                }}>
+            let avatar = `https://eu.ui-avatars.com/api/?name=${msg.username}&background=${msg.color.substr(1)}&size=40`;
+            return (
+            <div key={i} className="columns">
+                <div className="column is-1" style={{textAlign: "right", paddingTop: "1em"}}>
+                    <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
+                </div>
+                <div className="column is-11">
                     <span style={{color: msg.color}}>{msg.username}</span>
                     <div>{msg.text}</div>
                 </div>
-            </div>
+            </div>);
         });
     }
 
@@ -108,9 +104,8 @@ export default function Rooms() {
                 </div>
 
                 <div style={{paddingBottom: "5em"}}>
-                    {
-                        printMessages()
-                    }
+                    <div> <div> <div>La chat è appena iniziata. Saluta gli altri! :)</div> </div> </div>
+                    { printMessages() }
                 </div>
 
             </div>

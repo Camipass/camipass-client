@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {faPaperPlane, faPlus} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 

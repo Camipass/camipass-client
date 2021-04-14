@@ -4,7 +4,7 @@ import AuthLogin from "../pages/login/authLogin";
 import AuthSignup from "../pages/signup/authSignup";
 import PrivateRoute from "./privateRoute";
 import Rooms from "../pages/rooms";
-import Account from "../pages/account";
+// import Account from "../pages/account";
 import React from "react";
 import PageNotFound from "../pages/pagenotfound";
 

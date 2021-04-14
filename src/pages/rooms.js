@@ -7,17 +7,17 @@ import {socket} from "../services/socket";
 import RoomHistory from "../components/roomHistory";
 
 export default function Rooms() {
+    const firstMex = {
+        username: "",
+        color: '#fff',
+        text: "La chat è appena iniziata. Saluta gli altri! :)"
+    };
+
     const [prevRooms, setRooms] = useState([]);
     const [roomKeyword, setRoomKeyword] = useState("");
     const [currentkeyword, setCurrentKeyword] = useState("camipass-room");
     const [message, setMessage] = useState("");
-    const [displayMessages, setMessages] = useState([
-        {
-            username: "",
-            color: '#fff',
-            text: "La chat è appena iniziata. Saluta gli altri! :)"
-        }
-    ]);
+    const [displayMessages, setMessages] = useState([firstMex]);
     let auth = useAuth();
 
     useEffect(() => {
@@ -26,15 +26,15 @@ export default function Rooms() {
             socket.emit("room:join", {
                 keyword: currentkeyword,
             });
-        })
+        });
     })
 
     useEffect( () => () => {
         console.log('leaving')
         socket.emit('room:leave', {
             keyword: currentkeyword,
-        })
-    }, [] );
+        });
+    }, []);
 
     const writeMessage = (event) => {
         setMessage(event.target.value);
@@ -63,9 +63,17 @@ export default function Rooms() {
     });
 
     const newRoom = (newRoom) => {
+        socket.emit('room:leave', {
+            keyword: currentkeyword,
+        });
+
+        socket.emit("room:join", {
+            keyword: newRoom,
+        });
         setRoomKeyword(newRoom);
         setCurrentKeyword(newRoom);
         setRooms(current => [newRoom, ...prevRooms]);
+        setMessages([firstMex]);
     }
 
     const changeRoomKeyword = (event) => {

@@ -99,7 +99,8 @@
 @media screen and (max-width: 1023px) {
   .prevroom-side {
     width: 80% !important;
-    left: -100% !important; }
+    left: -100% !important;
+    bottom: 10em; }
   .prevroom-side-open {
     left: 0 !important;
     -webkit-animation: slide-right 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate;
@@ -117,6 +118,15 @@
     background-color: #202225;
     user-select: none;
     cursor: pointer; } }
+
+#roomName {
+  user-select: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  font-size: 1.5em;
+  color: #fda806; }
 
 /* Bulma Utilities */
 .button, .nav-button, .input, .textarea, .select select, .file-cta,

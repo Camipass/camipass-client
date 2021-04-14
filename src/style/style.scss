@@ -149,6 +149,7 @@ $input-shadow: none;
   .prevroom-side {
     width: 80%!important;
     left: -100%!important;
+    bottom: 10em;
   }
 
   .prevroom-side-open {
@@ -170,6 +171,16 @@ $input-shadow: none;
     user-select: none;
     cursor: pointer;
   }
+}
+
+#roomName {
+  user-select: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  font-size: 1.5em;
+  color: $secondary;
 }
 
 // Import only what you need from Bulma

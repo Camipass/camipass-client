@@ -9,7 +9,7 @@ import RoomHistory from "../components/roomHistory";
 export default function Rooms() {
     const [prevRooms, setRooms] = useState([]);
     const [roomKeyword, setRoomKeyword] = useState("");
-    const [currentkeyword, setCurrentKeyword] = useState("provastanza");
+    const [currentkeyword, setCurrentKeyword] = useState("camipass-room");
     const [message, setMessage] = useState("");
     const [displayMessages, setMessages] = useState([
         {
@@ -94,8 +94,10 @@ export default function Rooms() {
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
                          onChange={changeRoomKeyword} />
 
-            <div className="column is-two-thirds is-offset-one-third" style={{padding: "2em"}}>
-
+            <div className="column is-two-thirds-desktop is-offset-one-third-desktop is-12-mobile" style={{padding: "2em"}}>
+                <div id="roomName">
+                    {currentkeyword}
+                </div>
 
                 <div style={{paddingBottom: "5em"}}>
                     {

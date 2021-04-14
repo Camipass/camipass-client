@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react';
 import '../style/style.css';
 import {useAuth} from "../app/auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import {faPaperPlane, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {socket} from "../services/socket";
 import RoomHistory from "../components/roomHistory";
 
 export default function Rooms() {
     const [prevRooms, setRooms] = useState([]);
-    const [roomKeyword, setRoomKeyword] = useState("provastanza");
+    const [roomKeyword, setRoomKeyword] = useState("");
+    const [currentkeyword, setCurrentKeyword] = useState("provastanza");
     const [message, setMessage] = useState("");
     const [displayMessages, setMessages] = useState([
         {
@@ -23,7 +24,7 @@ export default function Rooms() {
         socket.connect();
         socket.on('success', () => {
             socket.emit("room:join", {
-                keyword: roomKeyword,
+                keyword: currentkeyword,
             });
         })
     })
@@ -31,7 +32,7 @@ export default function Rooms() {
     useEffect( () => () => {
         console.log('leaving')
         socket.emit('room:leave', {
-            keyword: roomKeyword,
+            keyword: currentkeyword,
         })
     }, [] );
 
@@ -63,15 +64,13 @@ export default function Rooms() {
 
     const newRoom = (newRoom) => {
         setRoomKeyword(newRoom);
+        setCurrentKeyword(newRoom);
         setRooms(current => [newRoom, ...prevRooms]);
-
     }
 
     const changeRoomKeyword = (event) => {
         setRoomKeyword(event.target.value);
     }
-
-    console.log(roomKeyword);
 
     const printMessages = () => {
         return displayMessages.map((msg, i) => {
@@ -89,10 +88,13 @@ export default function Rooms() {
 
     return (
         <div className="columns">
+            <div className="prevroom-btn">
+                <FontAwesomeIcon icon={faPlus}/> &nbsp; Nuova Room
+            </div>
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
                          onChange={changeRoomKeyword} />
 
-            <div className="column is-two-thirds is-offset-one-third" style={{paddingTop: "2em"}}>
+            <div className="column is-two-thirds is-offset-one-third" style={{padding: "2em"}}>
 
 
                 <div style={{paddingBottom: "5em"}}>

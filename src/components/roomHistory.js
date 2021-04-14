@@ -9,24 +9,24 @@ export default function RoomHistory({roomKeyword, onChange, onClick, prevRooms})
             return <div key={i} onClick={(word) => {
                 word = room;
                 onClick(word);
-            }} className="prevroom">
+            }} className="prevroom-row">
                 <span>{room}</span>
             </div>;
         });
     }
 
     return (
-    <div className="column is-one-third-desktop prevroom-side">
+    <div className="column is-one-third prevroom-side" id="prevroom-side">
         <div style={{padding: "1em",
             position: "sticky",
             left: 0, right: 0, top: 0,
             backgroundColor: "#202225"
         }}>
             <div style={{textAlign: "right"}}>
-                <div className="field columns" style={{paddingLeft: "1em"}}>
+                <div className="field columns" style={{padding: "0 0.5em"}}>
                     <div className="column is-four-fifths">
-                        <input className="input" name="message" id="message" type="text"
-                               value={roomKeyword} placeholder="Messaggio..."
+                        <input className="input" name="newroom" id="newroom" type="text"
+                               value={roomKeyword} placeholder="Nuova Room"
                                onChange={onChange}/>
                     </div>
                     <div className="column is-one-fifth">

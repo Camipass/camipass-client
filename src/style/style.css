@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+/* ===== SCROLLBAR STYLE ===== */
 *::-webkit-scrollbar {
   width: 1em; }
 
@@ -15,6 +16,7 @@
 *::-webkit-scrollbar-thumb:hover {
   background: #2F3136; }
 
+/* ===== NAVBAR STYLE ===== */
 .nav-button {
   border-radius: 2em !important;
   margin-right: 2em;
@@ -35,6 +37,7 @@
 #swal2-title, #swal2-content {
   color: #FDFFFC; }
 
+/* ===== FORM STYLE ===== */
 .labelform {
   color: #FDFFFC !important;
   font-weight: bold; }
@@ -43,6 +46,7 @@
   margin: 0.2em 0.5em;
   transform: scale(0.8); }
 
+/* ===== ROOM HISTORY STYLE ===== */
 .prevroom-side {
   position: fixed;
   padding: 0em 1em 2em 0 !important;
@@ -55,12 +59,35 @@
   -moz-box-shadow: 5px 0 10px 5px rgba(0, 0, 0, 0.5);
   box-shadow: 5px 0 10px 5px rgba(0, 0, 0, 0.5); }
 
-.prevroom {
+.prevroom-row {
   padding: 0.5em 2em; }
-  .prevroom:hover {
+  .prevroom-row:hover {
     cursor: pointer; }
-  .prevroom:nth-child(odd) {
+  .prevroom-row:nth-child(odd) {
     background-color: #2F3136; }
+
+.prevroom-btn {
+  display: none; }
+
+@media screen and (max-width: 1024px) {
+  #prevroom-side {
+    display: none; }
+  .prevroom-side-open {
+    display: block !important;
+    width: 80% !important; }
+  .prevroom-btn {
+    display: block;
+    position: fixed;
+    width: 10em;
+    top: 0;
+    left: calc(50% - 5em);
+    z-index: 50;
+    padding: 0.5em;
+    text-align: center;
+    border-radius: 0 0 1em 1em;
+    background-color: #202225;
+    user-select: none;
+    cursor: pointer; } }
 
 /* Bulma Utilities */
 .button, .nav-button, .input, .textarea, .select select, .file-cta,

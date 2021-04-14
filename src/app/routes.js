@@ -12,7 +12,7 @@ import PageNotFound from "../pages/pagenotfound";
 export default class Routes extends React.Component {
     constructor(props) {
         super(props);
-        this.props.auth.readCookieAndSetUser();
+        this.props.auth.setUser(this.props.auth.getUser()) ;
     }
 
     render() {

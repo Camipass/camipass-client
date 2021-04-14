@@ -38,17 +38,7 @@ function useProvideAuth() {
 
     const setCookie = (jwt) => {
         Cookies.set(REACT_APP_COOKIENAME, jwt);
-        readCookieAndSetUser();
-    }
-
-    const readCookieAndSetUser = () => {
-        let jwt = Cookies.get(REACT_APP_COOKIENAME);
-        console.log(jwt)
-        if (jwt !== "") {
-            setUser(parseJwt(jwt));
-        } else {
-            setUser(false);
-        }
+        setUser(getUser());
     }
 
     const removeCookie = () => {
@@ -163,32 +153,13 @@ function useProvideAuth() {
         });
     };
 
-    const sendPasswordResetEmail = email => {
-        // return firebase
-        //     .auth()
-        //     .sendPasswordResetEmail(email)
-        //     .then(() => {
-        //         return true;
-        //     });
-    };
-
-    const confirmPasswordReset = (code, password) => {
-        // return firebase
-        //     .auth()
-        //     .confirmPasswordReset(code, password)
-        //     .then(() => {
-        //         return true;
-        //     });
-    };
-
     // Return the user object and auth methods
     return {
         user,
+        setUser,
         signin,
         signup,
         signout,
-        sendPasswordResetEmail,
-        confirmPasswordReset,
-        readCookieAndSetUser
+        getUser
     };
 }

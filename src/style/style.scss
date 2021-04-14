@@ -154,8 +154,8 @@ $input-shadow: none;
 
   .prevroom-side-open {
     left: 0!important;
-    -webkit-animation: slide-right 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) alternate ;
-    animation: slide-right 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) alternate ;
+    -webkit-animation: slide-right 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) alternate ;
+    animation: slide-right 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) alternate ;
   }
 
   .prevroom-btn {

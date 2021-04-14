@@ -103,8 +103,8 @@
     bottom: 10em; }
   .prevroom-side-open {
     left: 0 !important;
-    -webkit-animation: slide-right 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate;
-    animation: slide-right 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate; }
+    -webkit-animation: slide-right 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate;
+    animation: slide-right 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53) alternate; }
   .prevroom-btn {
     display: block;
     position: fixed;

@@ -92,7 +92,9 @@ export default function Rooms() {
 
     return (
         <div className="columns">
-            <div className="prevroom-btn">
+            <div className="prevroom-btn" onClick={() => {
+                document.getElementById("prevroom-side").classList.toggle("prevroom-side-open");
+            }}>
                 <FontAwesomeIcon icon={faPlus}/> &nbsp; Nuova Room
             </div>
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}

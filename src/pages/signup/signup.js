@@ -3,6 +3,7 @@ import {Circle} from "react-color/lib/components/circle/Circle";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
 import '../../style/style.css';
+import {Link} from "react-router-dom";
 
 export default class Signup extends React.Component {
     defaultForm = {
@@ -107,6 +108,11 @@ export default class Signup extends React.Component {
                                     <input type="button" value="Reset" className="button is-light" onClick={ () => this.setState(this.defaultForm).bind(this) }/>
                                 </p>
 
+                            </div>
+                            <div className="field">
+                                <p className="control" style={{textAlign: "right"}}>
+                                    Ti sei già registratə? <Link to={"/login"}>Effettua il login</Link>.
+                                </p>
                             </div>
                         </form>
                     </div>

@@ -66,7 +66,7 @@ export default class Login extends React.Component {
                         </div>
                         <div className="field">
                             <p className="control" style={{textAlign: "right"}}>
-                                Non ti sei ancora registrato? <Link to={"/signup"}>Rimedia subito</Link>.
+                                Non ti sei ancora registratə? <Link to={"/signup"}>Rimedia subito</Link>.
                             </p>
                         </div>
                     </form>

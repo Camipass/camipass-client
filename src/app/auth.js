@@ -56,7 +56,7 @@ function useProvideAuth() {
                 let user = parseJwt(response.data);
                 swal.fire({
                     titleText: "Login effettuato!",
-                    text: "Bentornatə! Ci eri mancato :'(",
+                    text: "Bentornatə! Ci eri mancatə :'(",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'

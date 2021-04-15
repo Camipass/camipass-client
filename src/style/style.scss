@@ -183,6 +183,12 @@ $input-shadow: none;
   color: $secondary;
 }
 
+.message {
+  display: grid;
+  grid-template-columns: 50px auto;
+  grid-column-gap: 1em;
+}
+
 // Import only what you need from Bulma
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";

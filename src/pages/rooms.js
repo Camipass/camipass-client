@@ -78,11 +78,11 @@ export default function Rooms() {
         return displayMessages.map((msg, i) => {
             let avatar = `https://eu.ui-avatars.com/api/?name=${msg.username}&background=${msg.color.substr(1)}&size=40`;
             return (
-            <div key={i} className="columns">
-                <div className="column is-1" style={{textAlign: "right", paddingTop: "1em"}}>
+            <div key={i} className="message">
+                <div style={{textAlign: "right", paddingTop: "0.5em"}}>
                     <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
                 </div>
-                <div className="column is-11">
+                <div>
                     <span style={{color: msg.color}}>{msg.username}</span>
                     <div>{msg.text}</div>
                 </div>

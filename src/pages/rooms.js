@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import _, { map } from "underscore";
 import '../style/style.css';
 import {useAuth} from "../app/auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -52,8 +53,7 @@ export default function Rooms() {
                 username: msg.username,
                 color: msg.color,
                 text: msg.text
-            }])
-        console.log(displayMessages);
+            }]);
     });
 
     const newRoom = (newRoom) => {
@@ -66,7 +66,9 @@ export default function Rooms() {
         });
         setRoomKeyword(newRoom);
         setCurrentKeyword(newRoom);
-        setRooms(current => [newRoom, ...prevRooms]);
+        setRooms(current => [newRoom, ..._.filter(prevRooms, (item) => {
+            return item !== newRoom;
+        })]);
         setMessages([]);
     }
 

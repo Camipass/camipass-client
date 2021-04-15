@@ -17,10 +17,27 @@ export default function Rooms() {
 
     useEffect(() => {
         socket.connect();
-        socket.on('success', () => {
+        socket.on('connect', () => {
             socket.emit("room:join", {
                 keyword: currentkeyword,
             });
+        });
+        socket.on('room:chat', function (msg) {
+            setMessages(current => [...displayMessages, {
+                username: msg.username,
+                color: msg.color,
+                text: msg.text,
+                info: false
+            }]);
+        });
+
+        socket.on('roomInfo', function (event) {
+            setMessages(current => [...displayMessages, {
+                username: event.username,
+                color: event.color,
+                text: event.text,
+                info: true
+            }]);
         });
     })
 
@@ -29,6 +46,7 @@ export default function Rooms() {
         socket.emit('room:leave', {
             keyword: currentkeyword,
         });
+
     }, [currentkeyword]);
 
     const writeMessage = (event) => {
@@ -43,18 +61,13 @@ export default function Rooms() {
             setMessages(current => [...displayMessages, {
                 username: auth.user.username,
                 color: auth.user.color,
-                text: message
-            }])
+                text: message,
+                info: false
+            }]);
         }
     }
 
-    socket.on('room:chat', function (msg) {
-        setMessages(current => [...displayMessages, {
-                username: msg.username,
-                color: msg.color,
-                text: msg.text
-            }]);
-    });
+
 
     const newRoom = (newRoom) => {
         socket.emit('room:leave', {
@@ -79,16 +92,28 @@ export default function Rooms() {
     const printMessages = () => {
         return displayMessages.map((msg, i) => {
             let avatar = `https://eu.ui-avatars.com/api/?name=${msg.username}&background=${msg.color.substr(1)}&size=40`;
-            return (
-            <div key={i} className="message">
-                <div style={{textAlign: "right", paddingTop: "0.5em"}}>
-                    <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
+
+            let mex = (msg.info) ? (
+                <div key={i}>
+                    <div>
+                        <div className="infomex">
+                            <span style={{color: msg.color}}>{msg.username}</span>&nbsp;{msg.text}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span style={{color: msg.color}}>{msg.username}</span>
-                    <div>{msg.text}</div>
+            ) : (
+                <div key={i} className="message">
+                    <div style={{textAlign: "right", paddingTop: "0.5em", userSelect: "none"}}>
+                        <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
+                    </div>
+                    <div>
+                        <span style={{color: msg.color}}>{msg.username}</span>
+                        <div>{msg.text}</div>
+                    </div>
                 </div>
-            </div>);
+            );
+
+            return mex;
         });
     }
 
@@ -108,7 +133,7 @@ export default function Rooms() {
                 </div>
 
                 <div style={{paddingBottom: "5em"}}>
-                    <div> <div> <div>La chat è appena iniziata. Saluta gli altri! :)</div> </div> </div>
+                    <div> <div> <div className="infomex">La chat è appena iniziata. Saluta gli altri! :)</div> </div> </div>
                     { printMessages() }
                 </div>
 

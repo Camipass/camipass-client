@@ -32,6 +32,7 @@ export default function RoomHistory({roomKeyword, onChange, onClick, prevRooms})
                     <div className="column is-one-fifth">
                         <div className="control has-icons-left">
                             <input className="input button is-primary" id="sendMessage"
+                                   disabled={roomKeyword.length === 0}
                                    type="submit" value="Room" onClick={(word) => {
                                        word = roomKeyword;
                                        onClick(word);

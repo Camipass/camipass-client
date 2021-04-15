@@ -87,6 +87,9 @@ $input-shadow: none;
   background: $body-background-color;
 }
 
+::-moz-selection { background: $secondary; color: $primary }
+::selection { background: $secondary; color: $primary }
+
 /* ===== NAVBAR STYLE ===== */
 .nav-button {
   @extend .button;
@@ -187,6 +190,11 @@ $input-shadow: none;
   display: grid;
   grid-template-columns: 50px auto;
   grid-column-gap: 1em;
+}
+
+.infomex {
+  text-align: center;
+  user-select: none;
 }
 
 // Import only what you need from Bulma

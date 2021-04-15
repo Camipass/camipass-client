@@ -56,7 +56,7 @@ function useProvideAuth() {
                 let user = parseJwt(response.data);
                 swal.fire({
                     titleText: "Login effettuato!",
-                    text: "Bentornato! Ci eri mancato :'(",
+                    text: "Bentornatə! Ci eri mancato :'(",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
@@ -101,7 +101,7 @@ function useProvideAuth() {
                 }
                 swal.fire({
                     titleText: "Registrazione completata!",
-                    text: "Benvenuto nel mondo Camipass!\nEffettua il login per iniziare.",
+                    text: "Benvenutə nel mondo Camipass!\nEffettua il login per iniziare.",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
@@ -115,7 +115,7 @@ function useProvideAuth() {
                 if (err.response.status === 410)
                     swal.fire({
                         titleText: "Username già esistente",
-                        text: "Qualcuno è arrivato prima di te :-/",
+                        text: "Qualcunə è arrivatə prima di te :-/",
                         icon: "error",
                         background: "#393B41",
                         confirmButtonColor: '#F95F72'

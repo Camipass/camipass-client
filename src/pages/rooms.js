@@ -27,6 +27,7 @@ export default function Rooms() {
                 username: msg.username,
                 color: msg.color,
                 text: msg.text,
+                time: msg.time,
                 info: false
             }]);
         });
@@ -39,7 +40,7 @@ export default function Rooms() {
                 info: true
             }]);
         });
-    })
+    });
 
     useEffect( () => () => {
         console.log('leaving');
@@ -62,6 +63,7 @@ export default function Rooms() {
                 username: auth.user.username,
                 color: auth.user.color,
                 text: message,
+                time: (new Date()).toTimeString().substr(0, 5),
                 info: false
             }]);
         }
@@ -107,7 +109,11 @@ export default function Rooms() {
                         <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
                     </div>
                     <div>
-                        <span style={{color: msg.color}}>{msg.username}</span>
+                        <div>
+                            <span style={{color: msg.color}}>{msg.username} </span>
+                            &nbsp;<span style={{fontSize: "0.6em"}}>{msg.time}</span>
+                        </div>
+
                         <div>{msg.text}</div>
                     </div>
                 </div>

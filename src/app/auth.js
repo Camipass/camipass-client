@@ -148,13 +148,12 @@ function useProvideAuth() {
                 let user = response.data;
                 swal.fire({
                     titleText: "Dati aggiornati!",
-                    text: "Vedrai fin da subito le modifiche apportate.",
+                    text: "Effettua di nuovo il login per vedere le modifiche.",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
                 }).then(() => {
-                    setUser(user);
-                    //set cookie
+                    signout();
                     window.location = "/";
                 });
 

@@ -4,9 +4,9 @@ import AuthLogin from "../pages/login/authLogin";
 import AuthSignup from "../pages/signup/authSignup";
 import PrivateRoute from "./privateRoute";
 import Rooms from "../pages/rooms";
-// import Account from "../pages/account";
 import React from "react";
 import PageNotFound from "../pages/pagenotfound";
+import AuthAccount from "../pages/account/authAccount";
 
 
 export default class Routes extends React.Component {
@@ -24,9 +24,9 @@ export default class Routes extends React.Component {
                 <PrivateRoute exact path="/rooms">
                     <Rooms />
                 </PrivateRoute>
-                {/*<PrivateRoute exact path="/account">*/}
-                {/*    <Account />*/}
-                {/*</PrivateRoute>*/}
+                <PrivateRoute path="/account">
+                    <AuthAccount />
+                </PrivateRoute>
                 <Route path='/404' component={PageNotFound} />
                 <Redirect from='*' to='/404' />
             </Switch>

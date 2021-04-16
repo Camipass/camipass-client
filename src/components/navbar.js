@@ -28,12 +28,9 @@ export default function NavBar() {
                 </div>
                 { auth.user ? (
                     <div className="navbar-end">
-                        {/*<Link className="navbar-item" to="/account">*/}
-                        {/*    <FontAwesomeIcon icon={faUser} size="1x" style={{color: auth.user.color}}/>&nbsp; {auth.user.username} &nbsp;*/}
-                        {/*</Link>*/}
-                        <span className="navbar-item" >
+                        <Link className="navbar-item" to="/account">
                             <FontAwesomeIcon icon={faUser} size="1x" style={{color: auth.user.color}}/>&nbsp; {auth.user.username} &nbsp;
-                        </span>
+                        </Link>
                         <span className="navbar-item nav-button is-success" onClick={() => auth.signout()}>Disconnetti</span>
                     </div>
                 ) : (

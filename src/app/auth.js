@@ -45,7 +45,6 @@ function useProvideAuth() {
         Cookies.remove(REACT_APP_COOKIENAME);
     }
 
-    //TODO: lettura localstorage
     const signin = (email, password) => {
         let user = {
             email: email,
@@ -62,12 +61,11 @@ function useProvideAuth() {
                     confirmButtonColor: '#F95F72'
                 }).then((res) => {
                     setUser(user);
-                    setCookie(response.data)
+                    setCookie(response.data);
                     window.location = "/";
                 });
                 return user;
-            })
-            .catch(err => {
+            }).catch(err => {
                 if (err.response.status === 401)
                     swal.fire({
                         titleText: "Credenziali errate",
@@ -106,6 +104,57 @@ function useProvideAuth() {
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
                 }).then(() => {
+                    window.location = "/";
+                });
+
+                return user;
+            }).catch(err => {
+                if (err.response.status === 410)
+                    swal.fire({
+                        titleText: "Username già esistente",
+                        text: "Qualcunə è arrivatə prima di te :-/",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else if (err.response.status === 411)
+                    swal.fire({
+                        title: "Email già esistente",
+                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else swal.fire({
+                        titleText: "Qualcosa è andato storto :-/",
+                        text: "Aggiorna la pagina e riprova.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+            });
+    };
+
+    const update = (id, username, email, color) => {
+        let user = {
+            id: id,
+            username: username,
+            email: email,
+            color: color
+        }
+        let jwt = Cookies.get(REACT_APP_COOKIENAME);
+        return User.update(user, id, jwt)
+            .then(response => {
+                let user = response.data;
+                swal.fire({
+                    titleText: "Dati aggiornati!",
+                    text: "Vedrai fin da subito le modifiche apportate.",
+                    icon: "success",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                }).then(() => {
+                    setUser(user);
+                    //set cookie
                     window.location = "/";
                 });
 
@@ -159,6 +208,7 @@ function useProvideAuth() {
         setUser,
         signin,
         signup,
+        update,
         signout,
         getUser
     };

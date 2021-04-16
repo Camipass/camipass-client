@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import _, { map } from "underscore";
+import _  from "underscore";
 import '../style/style.css';
 import {useAuth} from "../app/auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

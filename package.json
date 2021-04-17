@@ -14,6 +14,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.1",
     "axios": "^0.21.1",
+    "bulma-carousel": "^4.0.24",
     "crypto-js": "^4.0.0",
     "js-cookie": "^2.2.1",
     "react": "^17.0.2",

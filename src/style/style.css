@@ -11,6 +11,7 @@
  * animation slide-right
  * ----------------------------------------
  */
+@import url(../../node_modules/bulma-carousel/dist/css/bulma-carousel.min.css);
 @-webkit-keyframes slide-right {
   0% {
     -webkit-transform: translateX(-100%);
@@ -144,6 +145,14 @@
 .infomex {
   text-align: center;
   user-select: none; }
+
+.carouselhome {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%; }
 
 /* Bulma Utilities */
 .button, .nav-button, .input, .textarea, .select select, .file-cta,

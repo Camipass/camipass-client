@@ -9,8 +9,9 @@ export default function Home() {
             slidesToShow: 1,
             autoplay: true,
             loop: true,
-            duration: 5000,
-            navigation: true
+            duration: 1500,
+            navigation: true,
+            autoplaySpeed: 7000
         });
     });
 

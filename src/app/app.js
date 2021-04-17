@@ -1,7 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 
-import { ProvideAuth } from "./auth";
+import {ProvideAuth} from "./auth";
 
 import NavBar from "../components/navbar";
 import AuthRoutes from "./authroutes";
@@ -13,7 +13,7 @@ export default function App() {
                 <div>
                     <NavBar/>
 
-                    <AuthRoutes />
+                    <AuthRoutes/>
                 </div>
             </Router>
         </ProvideAuth>

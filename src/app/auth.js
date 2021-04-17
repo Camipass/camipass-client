@@ -1,10 +1,10 @@
-import React, { useState, useContext, createContext } from "react";
+import React, {createContext, useContext, useState} from "react";
 import {User} from "../services/user";
 import swal from "sweetalert2";
 import {parseJwt} from "../components/utils";
 import Cookies from 'js-cookie';
 
-const { REACT_APP_COOKIENAME } = process.env;
+const {REACT_APP_COOKIENAME} = process.env;
 
 const authContext = createContext({
     user: null
@@ -12,7 +12,7 @@ const authContext = createContext({
 
 // Provider component that wraps your app and makes auth object ...
 // ... available to any child component that calls useAuth().
-export function ProvideAuth({ children }) {
+export function ProvideAuth({children}) {
     const auth = useProvideAuth();
     return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
@@ -75,12 +75,12 @@ function useProvideAuth() {
                         confirmButtonColor: '#F95F72'
                     });
                 else swal.fire({
-                        titleText: "Qualcosa è andato storto :-/",
-                        text: "Aggiorna la pagina e riprova.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
+                    titleText: "Qualcosa è andato storto :-/",
+                    text: "Aggiorna la pagina e riprova.",
+                    icon: "error",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                });
             });
     };
 

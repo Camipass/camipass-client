@@ -1,9 +1,9 @@
 import React from 'react';
 import '../style/style.css';
-import { Link } from "react-router-dom";
-import { useAuth } from "../app/auth";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
+import {useAuth} from "../app/auth";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function NavBar() {
     const auth = useAuth();
@@ -14,11 +14,11 @@ export default function NavBar() {
                 <a className="navbar-item" href="/">
                     <img src="/icons/logo/logo_large.png" alt="Camipass Logo"/>
                 </a>
-                <span role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
+                <div tabIndex={0} role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
                     <span aria-hidden="true"/>
                     <span aria-hidden="true"/>
                     <span aria-hidden="true"/>
-                </span>
+                </div>
             </div>
 
             <div className="navbar-menu">
@@ -26,17 +26,19 @@ export default function NavBar() {
                     <Link className="navbar-item" to="/">Home</Link>
                     <Link className="navbar-item" to="/rooms">Room</Link>
                 </div>
-                { auth.user ? (
+                {auth.user ? (
                     <div className="navbar-end">
                         <Link className="navbar-item" to="/account">
-                            <FontAwesomeIcon icon={faUser} size="1x" style={{color: auth.user.color}}/>&nbsp; {auth.user.username} &nbsp;
+                            <FontAwesomeIcon icon={faUser} size="1x"
+                                             style={{color: auth.user.color}}/>&nbsp; {auth.user.username} &nbsp;
                         </Link>
-                        <span className="navbar-item nav-button is-success" onClick={() => auth.signout()}>Disconnetti</span>
+                        <span className="navbar-item nav-button is-success"
+                              onClick={() => auth.signout()}>Disconnetti</span>
                     </div>
                 ) : (
                     <div className="navbar-end">
-                        <Link className="navbar-item nav-button is-primary" to="/login">Log In</Link>
-                        <Link className="navbar-item nav-button is-success" to="/signup">Sign Up</Link>
+                        <Link className="navbar-item nav-button is-primary" to="/login"><b>Log In</b></Link>
+                        <Link className="navbar-item nav-button is-success" to="/signup"><b>Sign Up</b></Link>
                     </div>
                 )
                 }

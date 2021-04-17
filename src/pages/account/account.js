@@ -1,14 +1,14 @@
 import React from 'react';
 import {Circle} from "react-color/lib/components/circle/Circle";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUser, faEnvelope, faKey} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
 import '../../style/style.css';
 
-export default class Signup extends React.Component {
+export default class Account extends React.Component {
 
     constructor(props) {
         super(props);
-        const { userId, username, email, color } = this.props.auth.user;
+        const {userId, username, email, color} = this.props.auth.user;
         this.state = {
             id: userId,
             username: username,
@@ -93,7 +93,7 @@ export default class Signup extends React.Component {
                             <p className="control">
                                 <input className="button is-primary" style={{margin: "auto"}}
                                        type="button" value="Aggiorna i dati" id="submitSignup"
-                                       onClick={this.submit.bind(this)} />
+                                       onClick={this.submit.bind(this)}/>
                             </p>
 
                         </div>

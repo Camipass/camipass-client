@@ -1,8 +1,8 @@
 import io from "socket.io-client";
 import Cookies from "js-cookie";
 
-const { REACT_APP_SERVER_ADDRESS_WEBSOCKET } = process.env;
-const { REACT_APP_COOKIENAME } = process.env;
+const {REACT_APP_SERVER_ADDRESS_WEBSOCKET} = process.env;
+const {REACT_APP_COOKIENAME} = process.env;
 
 
 export const socket = io(REACT_APP_SERVER_ADDRESS_WEBSOCKET, {

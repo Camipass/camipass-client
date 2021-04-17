@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import _  from "underscore";
+import _ from "underscore";
 import '../style/style.css';
 import {useAuth} from "../app/auth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -42,7 +42,7 @@ export default function Rooms() {
         });
     });
 
-    useEffect( () => () => {
+    useEffect(() => () => {
         console.log('leaving');
         socket.emit('room:leave', {
             keyword: currentkeyword,
@@ -57,7 +57,7 @@ export default function Rooms() {
     const sendMessage = (event) => {
         event.preventDefault();
         if (message) {
-            socket.emit("room:chat", { keyword: currentkeyword, text: message });
+            socket.emit("room:chat", {keyword: currentkeyword, text: message});
             setMessage("");
             setMessages(current => [...displayMessages, {
                 username: auth.user.username,
@@ -68,7 +68,6 @@ export default function Rooms() {
             }]);
         }
     }
-
 
 
     const newRoom = (newRoom) => {
@@ -131,16 +130,21 @@ export default function Rooms() {
                 <FontAwesomeIcon icon={faPlus}/> &nbsp; Nuova Room
             </div>
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
-                         onChange={changeRoomKeyword} />
+                         onChange={changeRoomKeyword}/>
 
-            <div className="column is-two-thirds-desktop is-offset-one-third-desktop is-12-mobile" style={{padding: "2em"}}>
+            <div className="column is-two-thirds-desktop is-offset-one-third-desktop is-12-mobile"
+                 style={{padding: "2em"}}>
                 <div id="roomName">
                     {currentkeyword}
                 </div>
 
                 <div style={{paddingBottom: "5em"}}>
-                    <div> <div> <div className="infomex">La chat è appena iniziata. Saluta gli altri! :)</div> </div> </div>
-                    { printMessages() }
+                    <div>
+                        <div>
+                            <div className="infomex">La chat è appena iniziata. Saluta gli altri! :)</div>
+                        </div>
+                    </div>
+                    {printMessages()}
                 </div>
 
             </div>

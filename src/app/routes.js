@@ -12,23 +12,23 @@ import AuthAccount from "../pages/account/authAccount";
 export default class Routes extends React.Component {
     constructor(props) {
         super(props);
-        this.props.auth.setUser(this.props.auth.getUser()) ;
+        this.props.auth.setUser(this.props.auth.getUser());
     }
 
     render() {
         return (
             <Switch>
                 <Route exact path="/" component={Home} on/>
-                <Route exact path="/login" component={AuthLogin} />
-                <Route exact path="/signup" component={AuthSignup} />
+                <Route exact path="/login" component={AuthLogin}/>
+                <Route exact path="/signup" component={AuthSignup}/>
                 <PrivateRoute exact path="/rooms">
-                    <Rooms />
+                    <Rooms/>
                 </PrivateRoute>
                 <PrivateRoute path="/account">
-                    <AuthAccount />
+                    <AuthAccount/>
                 </PrivateRoute>
-                <Route path='/404' component={PageNotFound} />
-                <Redirect from='*' to='/404' />
+                <Route path='/404' component={PageNotFound}/>
+                <Redirect from='*' to='/404'/>
             </Switch>
         );
     }

@@ -5,5 +5,5 @@ import {useAuth} from "../../app/auth";
 export default function AuthAccount() {
     let auth = useAuth();
 
-    return <Account auth={auth} />;
+    return <Account auth={auth}/>;
 }

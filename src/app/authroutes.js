@@ -4,5 +4,5 @@ import {useAuth} from "./auth";
 
 export default function AuthRoutes() {
     const auth = useAuth();
-    return ( <Routes auth={auth} />);
+    return (<Routes auth={auth}/>);
 }

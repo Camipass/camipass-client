@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app/app';
 import './style/style.css';
-import * as f from '@fortawesome/fontawesome-free'
+import * as serviceWorker from './serviceWorkerRegistration';
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <App/>,
+    document.getElementById('root')
 );
+serviceWorker.register();

@@ -6,9 +6,9 @@ import {Redirect} from "react-router-dom";
 export default function AuthSignup() {
     const auth = useAuth();
     const component = auth.user ? (
-        <Redirect from="/signup" to='/' />
+        <Redirect from="/signup" to='/'/>
     ) : (
-        <Signup auth={auth} />
+        <Signup auth={auth}/>
     );
     return component;
 }

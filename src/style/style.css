@@ -152,7 +152,11 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 90%; }
+  width: 90%;
+  overflow: hidden; }
+
+.slider-navigation-previous, .slider-navigation-next {
+  color: #2F3136; }
 
 /* Bulma Utilities */
 .button, .nav-button, .input, .textarea, .select select, .file-cta,

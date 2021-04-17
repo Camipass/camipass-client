@@ -9,7 +9,6 @@ export default function Home() {
             slidesToShow: 1,
             autoplay: true,
             loop: true,
-            infinite: true,
             duration: 1000,
             navigation: true
         });
@@ -22,6 +21,7 @@ export default function Home() {
                     <img className="item-1" src="img/slide1.png" alt=""/>
                     <img className="item-2" src="img/slide2.png" alt=""/>
                     <img className="item-3" src="img/slide3.png" alt=""/>
+                    <img className="item-3" src="img/slide4.png" alt=""/>
                 </div>
             </div>
         </div>

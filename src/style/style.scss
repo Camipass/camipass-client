@@ -204,7 +204,10 @@ $input-shadow: none;
   top:50%;
   transform: translate(-50%, -50%);
   width: 90%;
+  overflow: hidden;
 }
+
+.slider-navigation-previous, .slider-navigation-next { color: $body-background-color; }
 
 
 // Import only what you need from Bulma

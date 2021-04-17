@@ -66,7 +66,7 @@ function useProvideAuth() {
                 });
                 return user;
             }).catch(err => {
-                if (err.response.status === 401)
+                if (err.response && err.response.status === 401)
                     swal.fire({
                         titleText: "Credenziali errate",
                         text: "L'email o la password non sono corretti.",

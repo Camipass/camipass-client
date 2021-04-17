@@ -9,7 +9,7 @@ export default function Home() {
             slidesToShow: 1,
             autoplay: true,
             loop: true,
-            duration: 1000,
+            duration: 5000,
             navigation: true
         });
     });

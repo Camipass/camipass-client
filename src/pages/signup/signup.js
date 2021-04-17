@@ -43,7 +43,7 @@ export default class Signup extends React.Component {
                         password.length >= 8 &&
                         username.length > 0;
         return (
-            <div className="columns has-text-centered is-centered" style={{paddingTop: "2em"}}>
+            <div className="columns has-text-centered is-centered m-2" style={{paddingTop: "2em"}}>
                 <div className="column is-5-desktop is-12-mobile">
                     <form id="signupForm" name="signupForm">
                         <div className="field">

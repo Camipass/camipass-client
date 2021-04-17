@@ -31,7 +31,7 @@ export default class Login extends React.Component {
         const enabled = email.length > 0 &&
             password.length > 0;
         return (
-            <div className="columns has-text-centered is-centered" style={{paddingTop: "2em"}}>
+            <div className="columns has-text-centered is-centered m-2" style={{paddingTop: "2em"}}>
                 <div className="column is-5-desktop is-12-mobile has-text-centered">
                     <form id="signinForm" name="signinForm">
                         <div className="field">

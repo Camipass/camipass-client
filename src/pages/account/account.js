@@ -39,7 +39,7 @@ export default class Signup extends React.Component {
 
     render() {
         return (
-            <div className="columns has-text-centered is-centered ">
+            <div className="columns has-text-centered is-centered m-2">
                 <div className="column is-5-desktop is-12-mobile" style={{paddingTop: "2em"}}>
                     <form id="updateForm" name="updateForm">
                         <div className="field">

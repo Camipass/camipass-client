@@ -148,9 +148,8 @@ export default function Rooms() {
                 msg.mine ? <div key={i} className="mymessage has-text-right">
                         <div>
                             <div>
-                                <span style={{color: msg.color}}>{msg.username}&nbsp;
-                                    <span style={{fontSize: "0.6em"}}>{msg.time}</span>
-                                 </span>
+                                <span style={{color: msg.color}}>{msg.username} </span>
+                                &nbsp;<span style={{fontSize: "0.6em"}}>{msg.time}</span>
                             </div>
                             <div>{msg.text}</div>
                         </div>

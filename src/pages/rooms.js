@@ -30,7 +30,7 @@ export default function Rooms() {
     const handleAddMessage = useCallback((msg) => {
         const optionsNotification = {
             body: msg.text,
-            title: `${currentKeyword} - ${msg.username}: ${msg.text}`,
+            title: `${currentKeyword} - ${msg.username}`,
         }
         // console.log(window.location.origin + "/icons/favicon/favicon-300x300.png")
         // new Notification(`Nuovo messaggio da ${msg.username} nella chat ${currentKeyword}`, optionsNotification);

@@ -9,7 +9,7 @@
             content="Web site created using create-react-app"
             name="description"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link crossorigin href="https://fonts.googleapis.com" rel="preconnect">
     <link href="%PUBLIC_URL%/icons/favicon/favicon-300x300.png" rel="apple-touch-icon"/>
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -26,7 +26,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Camipass</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script async defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="is-dark">
 <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -48,17 +48,22 @@
         console.log('Service Worker is not supported by browser.');
     }
 
-    $(document).ready(function () {
-        // Check for click events on the navbar burger icon
-        $(".navbar-burger").click(function () {
-            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-            $(".navbar-burger").toggleClass("is-active");
-            $(".navbar-menu").toggleClass("is-active");
-        });
-        $(".navbar-item").click(function () {
-            $(".navbar-burger").removeClass("is-active");
-            $(".navbar-menu").removeClass("is-active");
-        });
+    document.addEventListener('DOMContentLoaded', function () {
+        const burger = document.querySelector('.navbar-burger')
+        const menu = document.querySelector('.navbar-menu')
+        const item = document.querySelector('.navbar-item')
+        burger.addEventListener('click', function () {
+            console.log('click')
+            console.log(burger.classList)
+            burger.classList.toggle('is-active');
+            console.log(burger.classList)
+            menu.classList.toggle('is-active');
+        })
+
+        item.addEventListener('click', function () {
+            burger.classList.remove('is-active');
+            menu.classList.remove('is-active');
+        })
     });
 </script>
 </body>

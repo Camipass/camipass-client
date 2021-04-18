@@ -12,7 +12,7 @@ export default function NavBar() {
         <nav className="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    <img src="/icons/logo/logo_large.png" alt="Camipass Logo"/>
+                    <img height="1.75rem" width="auto" src="/icons/logo/logo_large.png" alt="Camipass Logo"/>
                 </a>
                 <div tabIndex={0} role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
                     <span aria-hidden="true"/>

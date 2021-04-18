@@ -49,12 +49,14 @@
     {
       "src": "/icons/favicon/favicon-96x96.png",
       "type": "image/png",
-      "sizes": "96x96"
+      "sizes": "96x96",
+      "purpose": "maskable"
     },
     {
       "src": "/icons/favicon/favicon-300x300.png",
       "type": "image/png",
-      "sizes": "300x300"
+      "sizes": "300x300",
+      "purpose": "any"
     },
     {
       "src": "/icons/favicon/favicon-512x512.png",

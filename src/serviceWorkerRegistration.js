@@ -1,3 +1,20 @@
+export function showNotification(title, optionsNotification) {
+    Notification.requestPermission().then(result => {
+        if (result === 'granted') {
+            navigator.serviceWorker.ready.then(function (registration) {
+                registration.showNotification(title, {
+                    badge: '/icons/android/android-icon-96x96.png',
+                    body: optionsNotification.body,
+                    icon: '/icons/android/android-icon-192x192.png',
+                    vibrate: [200, 100, 200, 100, 200, 100, 200],
+                    tag: 'vibration-sample',
+                    lang: 'it'
+                }).then(r => r);
+            });
+        }
+    })
+}
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 

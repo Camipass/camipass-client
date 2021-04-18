@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPaperPlane, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {socket} from "../services/socket";
 import RoomHistory from "../components/roomHistory";
+import * as serviceWorker from '../serviceWorkerRegistration';
 
 export default function Rooms() {
     const [prevRooms, setRooms] = useState([]);
@@ -27,6 +28,13 @@ export default function Rooms() {
 
 
     const handleAddMessage = useCallback((msg) => {
+        const optionsNotification = {
+            body: msg.text,
+            title: `${currentKeyword} - ${msg.username}: ${msg.text}`,
+        }
+        // console.log(window.location.origin + "/icons/favicon/favicon-300x300.png")
+        // new Notification(`Nuovo messaggio da ${msg.username} nella chat ${currentKeyword}`, optionsNotification);
+        serviceWorker.showNotification(optionsNotification.title, optionsNotification)
         setMessages(current => [...displayMessages, {
             username: msg.username,
             color: msg.color,
@@ -35,7 +43,7 @@ export default function Rooms() {
             info: false,
             mine: false,
         }]);
-    }, [displayMessages])
+    }, [displayMessages, currentKeyword])
 
     useEffect(() => {
         socket.on('connect', () => {
@@ -44,6 +52,13 @@ export default function Rooms() {
                 keyword: currentKeyword,
             });
         });
+
+        if (!("Notification" in window)) {
+            console.log("This browser does not support desktop notification");
+        } else {
+            Notification.requestPermission();
+        }
+
         return () => {
             console.log('leaving');
             socket.emit('room:leave', {

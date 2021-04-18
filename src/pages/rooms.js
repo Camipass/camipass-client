@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import _ from "underscore";
 import '../style/style.css';
 import {useAuth} from "../app/auth";
@@ -10,45 +10,74 @@ import RoomHistory from "../components/roomHistory";
 export default function Rooms() {
     const [prevRooms, setRooms] = useState([]);
     const [roomKeyword, setRoomKeyword] = useState("");
-    const [currentkeyword, setCurrentKeyword] = useState("camipass-world");
+    const [currentKeyword, setCurrentKeyword] = useState("camipass-world");
     const [message, setMessage] = useState("");
     const [displayMessages, setMessages] = useState([]);
     let auth = useAuth();
 
+    const setInfo = (event) => {
+        setMessages(current => [...displayMessages, {
+            username: event.username,
+            color: event.color,
+            text: event.text,
+            info: true,
+            mine: false
+        }]);
+    }
+
+    const addMessage = (msg) => {
+        setMessages(current => [...displayMessages, {
+            username: msg.username,
+            color: msg.color,
+            text: msg.text,
+            time: msg.time,
+            info: false,
+            mine: false,
+        }]);
+    }
+
+
     useEffect(() => {
-        socket.connect();
         socket.on('connect', () => {
             socket.emit("room:join", {
-                keyword: currentkeyword,
+                keyword: currentKeyword,
             });
         });
-        socket.on('room:chat', function (msg) {
-            setMessages(current => [...displayMessages, {
-                username: msg.username,
-                color: msg.color,
-                text: msg.text,
-                time: msg.time,
-                info: false
-            }]);
-        });
+    }, [currentKeyword])
 
-        socket.on('roomInfo', function (event) {
-            setMessages(current => [...displayMessages, {
-                username: event.username,
-                color: event.color,
-                text: event.text,
-                info: true
-            }]);
-        });
-    });
+    useEffect(() => {
+        socket.on('room:chat', addMessage);
+
+        socket.on('roomInfo', setInfo);
+        return () => {
+            socket.off('room:chat', addMessage);
+            socket.off('roomInfo', setInfo);
+            socket.off('connect', () => {
+                socket.emit("room:join", {
+                    keyword: currentKeyword,
+                });
+            });
+        };
+    }, [addMessage, setInfo]);
+
 
     useEffect(() => () => {
         console.log('leaving');
         socket.emit('room:leave', {
-            keyword: currentkeyword,
+            keyword: currentKeyword,
         });
 
-    }, [currentkeyword]);
+    }, [currentKeyword]);
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [displayMessages]);
 
     const writeMessage = (event) => {
         setMessage(event.target.value);
@@ -57,14 +86,15 @@ export default function Rooms() {
     const sendMessage = (event) => {
         event.preventDefault();
         if (message) {
-            socket.emit("room:chat", {keyword: currentkeyword, text: message});
+            socket.emit("room:chat", {keyword: currentKeyword, text: message});
             setMessage("");
             setMessages(current => [...displayMessages, {
                 username: auth.user.username,
                 color: auth.user.color,
                 text: message,
                 time: (new Date()).toTimeString().substr(0, 5),
-                info: false
+                info: false,
+                mine: true
             }]);
         }
     }
@@ -72,7 +102,7 @@ export default function Rooms() {
 
     const newRoom = (newRoom) => {
         socket.emit('room:leave', {
-            keyword: currentkeyword,
+            keyword: currentKeyword,
         });
 
         socket.emit("room:join", {
@@ -94,7 +124,7 @@ export default function Rooms() {
         return displayMessages.map((msg, i) => {
             let avatar = `https://eu.ui-avatars.com/api/?name=${msg.username}&background=${msg.color.substr(1)}&size=40`;
 
-            let mex = (msg.info) ? (
+            return (msg.info) ? (
                 <div key={i}>
                     <div>
                         <div className="infomex">
@@ -103,27 +133,42 @@ export default function Rooms() {
                     </div>
                 </div>
             ) : (
-                <div key={i} className="message">
-                    <div style={{textAlign: "right", paddingTop: "0.5em", userSelect: "none"}}>
-                        <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
-                    </div>
-                    <div>
+                msg.mine ? <div key={i} className="mymessage has-text-right">
                         <div>
-                            <span style={{color: msg.color}}>{msg.username} </span>
-                            &nbsp;<span style={{fontSize: "0.6em"}}>{msg.time}</span>
+                            <div>
+                                <span style={{color: msg.color}}>{msg.username}&nbsp;
+                                    <span style={{fontSize: "0.6em"}}>{msg.time}</span>
+                                 </span>
+                            </div>
+                            <div>{msg.text}</div>
                         </div>
+                        <div style={{textAlign: "right", paddingTop: "0.5em", userSelect: "none"}}>
+                            <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
+                        </div>
+                    </div> :
+                    <div key={i} className="message">
+                        <div style={{textAlign: "right", paddingTop: "0.5em", userSelect: "none"}}>
+                            <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
+                        </div>
+                        <div>
+                            <div>
+                                <span style={{color: msg.color}}>{msg.username} </span>
+                                &nbsp;<span style={{fontSize: "0.6em"}}>{msg.time}</span>
+                            </div>
 
-                        <div>{msg.text}</div>
+                            <div>{msg.text}</div>
+                        </div>
                     </div>
-                </div>
             );
-
-            return mex;
         });
     }
 
     return (
-        <div className="columns">
+
+        <div className="columns" style={{marginRight: 0, marginLeft: 0}}>
+            {/*
+                Pulsante nuova room e visualizzazione room in cui l'utente entra
+            */}
             <div className="prevroom-btn" onClick={() => {
                 document.getElementById("prevroom-side").classList.toggle("prevroom-side-open");
             }}>
@@ -132,48 +177,56 @@ export default function Rooms() {
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
                          onChange={changeRoomKeyword}/>
 
-            <div className="column is-two-thirds-desktop is-offset-one-third-desktop is-12-mobile"
-                 style={{padding: "2em"}}>
-                <div id="roomName">
-                    {currentkeyword}
-                </div>
+            {/*
+                Lista messaggi
+            */}
+            <div className="column"
+                 style={{display: "grid", gridTemplateRows: "auto 4em", gridTemplateColumns: "auto"}}>
+                <div className="column is-two-thirds-desktop is-offset-one-third-desktop is-12-mobile"
+                     style={{padding: "2em"}}>
+                    <div id="roomName">
+                        {currentKeyword}
+                    </div>
 
-                <div style={{paddingBottom: "5em"}}>
-                    <div>
+                    <div style={{paddingBottom: "5em"}}>
                         <div>
-                            <div className="infomex">La chat è appena iniziata. Saluta gli altri! :)</div>
+                            <div>
+                                <div className="infomex">La chat è appena iniziata. Saluta gli altri! :)</div>
+                            </div>
                         </div>
+                        {printMessages()}
+                        <div ref={messagesEndRef}/>
                     </div>
-                    {printMessages()}
                 </div>
-
-            </div>
-            <form onSubmit={sendMessage} style={{
-                position: "fixed",
-                minHeight: "4em",
-                bottom: "0",
-                left: "0",
-                right: "0",
-                padding: "1em",
-                backgroundColor: "#393B41"
-            }}>
-                <div className="field columns">
-                    <div className="column is-four-fifths">
-                        <input className="input" name="message" id="message" type="text"
-                               value={message} placeholder="Messaggio..."
-                               onChange={writeMessage}/>
-                    </div>
-                    <div className="column is-one-fifth">
-                        <div className="control has-icons-left">
-                            <input className="input button is-primary" id="sendMessage"
-                                   type="submit" value="Invia" disabled={message.length <= 0}/>
-                            <span className="iconField is-left" style={{paddingTop: "0.25em"}}>
+                <form onSubmit={sendMessage} style={{
+                    position: "fixed",
+                    minHeight: "4em",
+                    bottom: "0",
+                    left: "0",
+                    right: "0",
+                    padding: "1em",
+                    backgroundColor: "#393B41"
+                }}>
+                    <div className="field columns" style={{marginRight: 0, marginLeft: 0}}>
+                        <div className="column is-four-fifths">
+                            <input className="input" name="message" id="message" type="text"
+                                   value={message} placeholder="Messaggio..."
+                                   onChange={writeMessage}/>
+                        </div>
+                        <div className="column is-one-fifth">
+                            <div className="control has-icons-left">
+                                <input className="input button is-primary" id="sendMessage"
+                                       type="submit" value="Invia" disabled={message.length <= 0}/>
+                                <span className="iconField is-left" style={{paddingTop: "0.25em"}}>
                                     <FontAwesomeIcon icon={faPaperPlane} style={{transform: "scale(1.5)"}}/>
                                 </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
+
         </div>
 
     );

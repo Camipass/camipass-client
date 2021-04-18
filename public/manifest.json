@@ -1,6 +1,7 @@
 {
   "short_name": "Camipass",
-  "name": "A beautiful chat app",
+  "name": "Camipass",
+  "description": "A beautiful chat app",
   "icons": [
     {
       "src": "/icons/android/android-icon-36x36.png",

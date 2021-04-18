@@ -226,6 +226,16 @@ $input-shadow: none;
   grid-column-gap: 1em;
 }
 
+.circle-picker {
+  margin-right: 0 !important;
+}
+
+.mymessage {
+  display: grid;
+  grid-template-columns: auto 50px;
+  grid-column-gap: 1em;
+}
+
 .infomex {
   text-align: center;
   user-select: none;

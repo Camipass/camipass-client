@@ -8,7 +8,6 @@ const {REACT_APP_COOKIENAME} = process.env;
 export const socket = io(REACT_APP_SERVER_ADDRESS_WEBSOCKET, {
     path: '/socket.io',
     withCredentials: true,
-    autoConnect: false,
     extraHeaders: {
         'x-auth-token': Cookies.get(REACT_APP_COOKIENAME)
     },

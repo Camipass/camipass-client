@@ -46,8 +46,12 @@ export default function Rooms() {
     }, [displayMessages, currentKeyword])
 
     useEffect(() => {
+        console.log('Initializing...')
+        socket.emit("room:join", {
+            keyword: currentKeyword,
+        });
         socket.on('connect', () => {
-            console.log('joining room')
+            console.log('connected')
             socket.emit("room:join", {
                 keyword: currentKeyword,
             });

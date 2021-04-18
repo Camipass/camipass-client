@@ -43,6 +43,14 @@ export default function Rooms() {
                 keyword: currentKeyword,
             });
         });
+
+        return () => {
+            socket.off('connect', () => {
+                socket.emit("room:join", {
+                    keyword: currentKeyword,
+                });
+            });
+        }
     }, [currentKeyword])
 
     useEffect(() => {
@@ -52,11 +60,11 @@ export default function Rooms() {
         return () => {
             socket.off('room:chat', addMessage);
             socket.off('roomInfo', setInfo);
-            socket.off('connect', () => {
-                socket.emit("room:join", {
-                    keyword: currentKeyword,
-                });
-            });
+            // socket.off('connect', () => {
+            //     socket.emit("room:join", {
+            //         keyword: currentKeyword,
+            //     });
+            // });
         };
     }, [addMessage, setInfo]);
 
@@ -209,7 +217,7 @@ export default function Rooms() {
                 }}>
                     <div className="field columns" style={{marginRight: 0, marginLeft: 0}}>
                         <div className="column is-four-fifths">
-                            <input className="input" name="message" id="message" type="text"
+                            <input autoComplete="off" className="input" name="message" id="message" type="text"
                                    value={message} placeholder="Messaggio..."
                                    onChange={writeMessage}/>
                         </div>

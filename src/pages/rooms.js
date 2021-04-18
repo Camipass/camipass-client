@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import _ from "underscore";
 import '../style/style.css';
 import {useAuth} from "../app/auth";
@@ -15,7 +15,7 @@ export default function Rooms() {
     const [displayMessages, setMessages] = useState([]);
     let auth = useAuth();
 
-    const setInfo = (event) => {
+    const handleSetInfo = useCallback((event) => {
         setMessages(current => [...displayMessages, {
             username: event.username,
             color: event.color,
@@ -23,9 +23,10 @@ export default function Rooms() {
             info: true,
             mine: false
         }]);
-    }
+    }, [displayMessages])
 
-    const addMessage = (msg) => {
+
+    const handleAddMessage = useCallback((msg) => {
         setMessages(current => [...displayMessages, {
             username: msg.username,
             color: msg.color,
@@ -34,48 +35,32 @@ export default function Rooms() {
             info: false,
             mine: false,
         }]);
-    }
-
+    }, [displayMessages])
 
     useEffect(() => {
         socket.on('connect', () => {
+            console.log('joining room')
             socket.emit("room:join", {
                 keyword: currentKeyword,
             });
         });
-
         return () => {
-            socket.off('connect', () => {
-                socket.emit("room:join", {
-                    keyword: currentKeyword,
-                });
+            console.log('leaving');
+            socket.emit('room:leave', {
+                keyword: currentKeyword,
             });
         }
-    }, [currentKeyword])
+    }, [currentKeyword]);
 
     useEffect(() => {
-        socket.on('room:chat', addMessage);
-
-        socket.on('roomInfo', setInfo);
+        socket.on('room:chat', handleAddMessage);
+        socket.on('roomInfo', handleSetInfo);
         return () => {
-            socket.off('room:chat', addMessage);
-            socket.off('roomInfo', setInfo);
-            // socket.off('connect', () => {
-            //     socket.emit("room:join", {
-            //         keyword: currentKeyword,
-            //     });
-            // });
+            socket.off('room:chat', handleAddMessage);
+            socket.off('roomInfo', handleSetInfo);
         };
-    }, [addMessage, setInfo]);
+    }, [handleAddMessage, handleSetInfo]);
 
-
-    useEffect(() => () => {
-        console.log('leaving');
-        socket.emit('room:leave', {
-            keyword: currentKeyword,
-        });
-
-    }, [currentKeyword]);
 
     const messagesEndRef = useRef(null)
 

@@ -135,7 +135,7 @@ function useProvideAuth() {
             });
     };
 
-    const update = (id, username, email, color) => {
+    const update = (id, username, email, cambiapassword, oldpassword, newpassword, color) => {
         let user = {
             id: id,
             username: username,

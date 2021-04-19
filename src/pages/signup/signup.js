@@ -25,10 +25,10 @@ export default function Signup(props) {
                             <input className="input is-7" name="username" id="username"
                                    defaultValue="" {...register("username", {
                                 required: {value: true, message: "Username richiesto"},
-                                maxLength: {value: 255, message: "Username più lungo di 255 caratteri!"},
+                                maxLength: {value: 60, message: "Username più lungo di 60 caratteri!"},
                                 minLength: {value: 1, message: "Username più corto di 1 carattere"},
                                 pattern: {
-                                    value: /^[a-z\d\-_\s]+$/i,
+                                    value: /^\s*(?:[A-Z0-9\-_]\s*){1,60}$/i,
                                     message: "L'username può contenere solo lettere dell'alfabeto, spazi, - e _"
                                 }
                             })}

@@ -68,10 +68,10 @@ export default function Account(props) {
                                    defaultValue={username}
                                    {...register("username", {
                                        required: {value: true, message: "Username richiesto"},
-                                       maxLength: {value: 255, message: "Username più lungo di 255 caratteri!"},
+                                       maxLength: {value: 60, message: "Username più lungo di 60 caratteri!"},
                                        minLength: {value: 1, message: "Username più corto di 1 carattere"},
                                        pattern: {
-                                           value: /^[a-z\d\-_\s]+$/i,
+                                           value: /^\s*(?:[A-Z0-9\-_]\s*){1,60}$/i,
                                            message: "L'username può contenere solo lettere dell'alfabeto, spazi, - e _"
                                        }
                                    })}
@@ -137,7 +137,7 @@ export default function Account(props) {
                                     <input className="input" name="newpassword" id="newpassword" type="password"
                                            defaultValue=""
                                            {...register("newpassword", {
-                                               maxLength: {value: 255, message: "Password più lunga di 255 caratteri!"},
+                                               maxLength: {value: 32, message: "Password più lunga di 32 caratteri!"},
                                                minLength: {value: 8, message: "Password più corta di 8 caratteri"},
                                                required: {value: true, message: "Password richiesta"},
                                            })}/>

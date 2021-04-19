@@ -49,8 +49,12 @@ export default function RoomHistory({roomKeyword, onChange, onClick, prevRooms})
                                            value: 1,
                                            message: 'Lunghezza minima: 1 carattere'
                                        },
+                                       maxLength: {
+                                           value: 60,
+                                           message: 'Lunghezza massima: 60 caratteri'
+                                       },
                                        pattern: {
-                                           value: /^[a-z\d\-_]+$/i,
+                                           value: /^([A-Z0-9\-_]){1,60}$/i,
                                            message: 'Nome room non valido, solo caratteri alfabeto, - e _',
                                        }
                                    })}

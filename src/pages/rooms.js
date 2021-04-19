@@ -113,6 +113,8 @@ export default function Rooms() {
 
 
     const newRoom = (newRoom) => {
+        newRoom.trim();
+        currentKeyword.trim();
         if (currentKeyword !== newRoom) {
             socket.emit('room:leave', {
                 keyword: currentKeyword,
@@ -128,7 +130,6 @@ export default function Rooms() {
             })]);
             setMessages([]);
         }
-
     }
 
     const changeRoomKeyword = (event) => {

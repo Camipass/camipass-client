@@ -136,16 +136,36 @@ function useProvideAuth() {
     };
 
     const updateWpassword = (user, oldpw, newpw, jwt) => {
-
+        User.validatePassword({password: oldpw}, jwt)
+            .then(res => {
+                user.password = newpw;
+                updateUser(user, jwt);
+            }).catch(err => {
+                if (err.response.status === 400)
+                    swal.fire({
+                        title: "Vecchia password non corretta",
+                        text: "Inserisci correttamente la vecchia password.",
+                        icon: "error",
+                        background: "#393B41",
+                        confirmButtonColor: '#F95F72'
+                    });
+                else swal.fire({
+                    titleText: "Qualcosa è andato storto :-/",
+                    text: "Aggiorna la pagina e riprova.",
+                    icon: "error",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                });
+            })
     }
 
-    const updateWOpassword = (user, jwt) => {
-        return User.update(user, user.id, jwt)
+    const updateUser = (user, jwt) => {
+        User.update(user, user.id, jwt)
             .then(response => {
                 let user = response.data;
                 swal.fire({
                     titleText: "Dati aggiornati!",
-                    text: "Effettua di nuovo il login per vedere le modifiche.",
+                    text: "Effettua di nuovo il login per applicare le modifiche.",
                     icon: "success",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
@@ -154,8 +174,7 @@ function useProvideAuth() {
                 });
 
                 return user;
-            })
-            .catch(err => {
+            }).catch(err => {
                 if (err.response.status === 410)
                     swal.fire({
                         titleText: "Username già esistente",
@@ -192,7 +211,7 @@ function useProvideAuth() {
         let jwt = Cookies.get(REACT_APP_COOKIENAME);
 
         if (cambiapassword) updateWpassword(user, oldpassword, newpassword, jwt);
-        else updateWOpassword(user, jwt);
+        else updateUser(user, jwt);
     };
 
     const signout = () => {

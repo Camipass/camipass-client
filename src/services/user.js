@@ -12,6 +12,13 @@ export let User = {
             }
         });
     },
+    validatePassword: (data, token) => {
+        return axios.post(`${REACT_APP_SERVER_ADDRESS}/users/validate-password`, data, {
+            headers: {
+                authorization: token
+            }
+        });
+    },
     login: (data) => {
         return axios.post(`${REACT_APP_SERVER_ADDRESS}/auth/login`, data);
     }

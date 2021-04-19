@@ -69,7 +69,11 @@ export default function Account(props) {
                                    {...register("username", {
                                        required: {value: true, message: "Username richiesto"},
                                        maxLength: {value: 255, message: "Username più lungo di 255 caratteri!"},
-                                       minLength: {value: 1, message: "Username più corto di 1 carattere"}
+                                       minLength: {value: 1, message: "Username più corto di 1 carattere"},
+                                       pattern: {
+                                           value: /^[a-z0-9]+$/i,
+                                           message: "L'username può contenere solo lettere dell'alfabeto"
+                                       }
                                    })}
                             />
                             <span className="iconField is-left">

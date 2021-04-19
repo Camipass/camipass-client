@@ -113,19 +113,22 @@ export default function Rooms() {
 
 
     const newRoom = (newRoom) => {
-        socket.emit('room:leave', {
-            keyword: currentKeyword,
-        });
+        if (currentKeyword !== newRoom) {
+            socket.emit('room:leave', {
+                keyword: currentKeyword,
+            });
 
-        socket.emit("room:join", {
-            keyword: newRoom,
-        });
-        setRoomKeyword(newRoom);
-        setCurrentKeyword(newRoom);
-        setRooms(current => [newRoom, ..._.filter(prevRooms, (item) => {
-            return item !== newRoom;
-        })]);
-        setMessages([]);
+            socket.emit("room:join", {
+                keyword: newRoom,
+            });
+            setRoomKeyword(newRoom);
+            setCurrentKeyword(newRoom);
+            setRooms(current => [newRoom, ..._.filter(prevRooms, (item) => {
+                return item !== newRoom;
+            })]);
+            setMessages([]);
+        }
+
     }
 
     const changeRoomKeyword = (event) => {
@@ -181,9 +184,14 @@ export default function Rooms() {
                 Pulsante nuova room e visualizzazione room in cui l'utente entra
             */}
             <div className="prevroom-btn" onClick={() => {
+                if (!document.getElementById('prevroom-side').classList.contains('prevroom-side-open')) {
+                    document.querySelector('.prevroom-btn span[id="newRoomText"]').innerText = ' Torna in chat';
+                } else {
+                    document.querySelector('.prevroom-btn span[id="newRoomText"]').innerText = ' Nuova room';
+                }
                 document.getElementById("prevroom-side").classList.toggle("prevroom-side-open");
             }}>
-                <FontAwesomeIcon icon={faPlus}/> &nbsp; Nuova Room
+                <FontAwesomeIcon id="newRoomText" icon={faPlus}/><span id="newRoomText"> &nbsp; Nuova Room</span>
             </div>
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
                          onChange={changeRoomKeyword}/>

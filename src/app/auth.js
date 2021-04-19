@@ -135,15 +135,12 @@ function useProvideAuth() {
             });
     };
 
-    const update = (id, username, email, cambiapassword, oldpassword, newpassword, color) => {
-        let user = {
-            id: id,
-            username: username,
-            email: email,
-            color: color
-        }
-        let jwt = Cookies.get(REACT_APP_COOKIENAME);
-        return User.update(user, id, jwt)
+    const updateWpassword = (user, oldpw, newpw, jwt) => {
+
+    }
+
+    const updateWOpassword = (user, jwt) => {
+        return User.update(user, user.id, jwt)
             .then(response => {
                 let user = response.data;
                 swal.fire({
@@ -154,7 +151,6 @@ function useProvideAuth() {
                     confirmButtonColor: '#F95F72'
                 }).then(() => {
                     signout();
-                    window.location = "/";
                 });
 
                 return user;
@@ -184,6 +180,19 @@ function useProvideAuth() {
                         confirmButtonColor: '#F95F72'
                     });
             });
+    }
+
+    const update = (id, username, email, cambiapassword, oldpassword, newpassword, color) => {
+        let user = {
+            id: id,
+            username: username,
+            email: email,
+            color: color
+        }
+        let jwt = Cookies.get(REACT_APP_COOKIENAME);
+
+        if (cambiapassword) updateWpassword(user, oldpassword, newpassword, jwt);
+        else updateWOpassword(user, jwt);
     };
 
     const signout = () => {

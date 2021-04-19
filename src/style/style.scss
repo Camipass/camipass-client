@@ -74,6 +74,7 @@ $navbar-padding-vertical: 2rem;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$input-hover-color: white;
 
 /**
  * ----------------------------------------
@@ -274,7 +275,6 @@ $input-shadow: none;
 .slider-navigation-previous, .slider-navigation-next {
   color: $body-background-color;
 }
-
 
 /**
  * ----------------------------------------

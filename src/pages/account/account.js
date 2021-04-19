@@ -1,15 +1,15 @@
 import React from 'react';
-import {Circle} from "react-color/lib/components/circle/Circle";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEnvelope, faUser, faKey} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
 import '../../style/style.css';
 import {Controller, useForm} from "react-hook-form";
 import swal from "sweetalert2";
+import {Circle} from "react-color/lib/components/circle/Circle";
 
 export default function Account(props) {
 
     const {userId, username, email, color} = props.auth.user;
-    const {register, handleSubmit, formState: {errors}, control, watch} = useForm({
+    const {register, handleSubmit, formState: {errors}, control, getValues, watch} = useForm({
         defaultValues: {
             id: userId,
             username: username,
@@ -21,6 +21,8 @@ export default function Account(props) {
             color: color
         }
     });
+
+    const cambiapassword = watch("cambiapassword");
 
     const submit = (data) => {
         if (data.cambiapassword) {
@@ -49,6 +51,10 @@ export default function Account(props) {
         document.getElementById('submitModify').disabled = true;
         props.auth.update(data.id, data.username, data.email, data.cambiapassword, data.oldpassword, data.newpassword, data.color);
         document.getElementById('submitModify').disabled = false;
+    }
+
+    async function validatePassword(value) {
+        return props.auth.validatePassword({password: value});
     }
 
     return (
@@ -93,53 +99,76 @@ export default function Account(props) {
                         <label className="checkbox" htmlFor="cambiapassword">
                             <input type="checkbox" name="cambiapassword" id="cambiapassword"
                                    {...register("cambiapassword")} />
-                                &nbsp; Cambia Password
+                            &nbsp; Cambia Password
                         </label>
                     </div>
-                    <div style={{display: (watch("cambiapassword")) ? "block" : "none"}}>
-                        <div className="field">
-                            <label className="is-one-third labelform" htmlFor="password"> Vecchia password </label>
-                            <div className="control has-icons-left">
-                                <input className="input" name="oldpassword" id="oldpassword" type="password"
-                                       defaultValue=""
-                                       {...register("oldpassword", {
-                                           maxLength: {value: 255, message: "Password più lunga di 255 caratteri!"},
-                                           minLength: {value: 8, message: "Password più corta di 8 caratteri"}
-                                       })}/>
-                                <span className="iconField is-left">
+                    {cambiapassword && (<div>
+                            <div className="field">
+                                <label className="is-one-third labelform" htmlFor="password"> Vecchia password </label>
+                                <div className="control has-icons-left">
+                                    <input autoComplete="false" className="input" name="oldpassword" id="oldpassword"
+                                           type="password"
+                                           defaultValue=""
+                                           {...register("oldpassword", {
+                                               validate: async value => {
+                                                   let isValid = false;
+                                                   await validatePassword(value).then(result => {
+                                                       isValid = true
+                                                   }).catch(resp => {
+                                                       isValid = false;
+                                                   })
+                                                   return isValid || 'Password attuale non corretta';
+                                               }
+                                           })}/>
+                                    <span className="iconField is-left">
                                     <FontAwesomeIcon icon={faKey} size="2x"/>
                                 </span>
+                                    {errors?.oldpassword &&
+                                    <p className="help is-danger">{errors?.oldpassword?.message}</p>}
+                                </div>
                             </div>
-                        </div>
-                        <div className="field">
-                            <label className="is-one-third labelform" htmlFor="password"> Nuova password </label>
-                            <div className="control has-icons-left">
-                                <input className="input" name="newpassword" id="newpassword" type="password"
-                                       defaultValue=""
-                                       {...register("newpassword", {
-                                           maxLength: {value: 255, message: "Password più lunga di 255 caratteri!"},
-                                           minLength: {value: 8, message: "Password più corta di 8 caratteri"}
-                                       })}/>
-                                <span className="iconField is-left">
+                            <div className="field">
+                                <label className="is-one-third labelform" htmlFor="password"> Nuova password </label>
+                                <div className="control has-icons-left">
+                                    <input className="input" name="newpassword" id="newpassword" type="password"
+                                           defaultValue=""
+                                           {...register("newpassword", {
+                                               maxLength: {value: 255, message: "Password più lunga di 255 caratteri!"},
+                                               minLength: {value: 8, message: "Password più corta di 8 caratteri"},
+                                               required: {value: true, message: "Password richiesta"},
+                                           })}/>
+                                    <span className="iconField is-left">
                                     <FontAwesomeIcon icon={faKey} size="2x"/>
                                 </span>
+                                    {errors?.newpassword &&
+                                    <p className="help is-danger">{errors?.newpassword?.message}</p>}
+                                </div>
                             </div>
-                        </div>
-                        <div className="field">
-                            <label className="is-one-third labelform" htmlFor="password"> Ripeti nuova password </label>
-                            <div className="control has-icons-left">
-                                <input className="input" name="repeatnewpassword" id="repeatnewpassword" type="password"
-                                       defaultValue=""
-                                       {...register("repeatnewpassword", {
-                                           maxLength: {value: 255, message: "Password più lunga di 255 caratteri!"},
-                                           minLength: {value: 8, message: "Password più corta di 8 caratteri"}
-                                       })}/>
-                                <span className="iconField is-left">
+                            <div className="field">
+                                <label className="is-one-third labelform" htmlFor="password"> Ripeti nuova
+                                    password </label>
+                                <div className="control has-icons-left">
+                                    <input className="input" name="repeatnewpassword" id="repeatnewpassword"
+                                           type="password"
+                                           defaultValue=""
+                                           {...register("repeatnewpassword", {
+                                               required: {value: true, message: "Conferma la password"},
+                                               validate: {
+                                                   matchesPreviousPassword: (value) => {
+                                                       const {newpassword} = getValues();
+                                                       return newpassword === value || "Le password non corrispondono";
+                                                   }
+                                               }
+                                           })}/>
+                                    <span className="iconField is-left">
                                     <FontAwesomeIcon icon={faKey} size="2x"/>
                                 </span>
+                                    {errors?.repeatnewpassword &&
+                                    <p className="help is-danger">{errors?.repeatnewpassword?.message}</p>}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                     <div className="columns field is-grouped is-grouped-centered mt-3">
                         <label htmlFor="color" className="column labelform">
                             Scegli il tuo colore!

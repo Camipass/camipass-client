@@ -141,23 +141,27 @@ function useProvideAuth() {
                 user.password = newpw;
                 updateUser(user, jwt);
             }).catch(err => {
-                if (err.response.status === 400)
-                    swal.fire({
-                        title: "Vecchia password non corretta",
-                        text: "Inserisci correttamente la vecchia password.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else swal.fire({
-                    titleText: "Qualcosa è andato storto :-/",
-                    text: "Aggiorna la pagina e riprova.",
+            if (err.response.status === 400)
+                swal.fire({
+                    title: "Vecchia password non corretta",
+                    text: "Inserisci correttamente la vecchia password.",
                     icon: "error",
                     background: "#393B41",
                     confirmButtonColor: '#F95F72'
                 });
-            })
+            else swal.fire({
+                titleText: "Qualcosa è andato storto :-/",
+                text: "Aggiorna la pagina e riprova.",
+                icon: "error",
+                background: "#393B41",
+                confirmButtonColor: '#F95F72'
+            });
+        })
     }
+
+    const validatePassword = (data) => {
+        return User.validatePassword(data, Cookies.get(REACT_APP_COOKIENAME))
+    };
 
     const updateUser = (user, jwt) => {
         User.update(user, user.id, jwt)
@@ -175,30 +179,30 @@ function useProvideAuth() {
 
                 return user;
             }).catch(err => {
-                if (err.response.status === 410)
-                    swal.fire({
-                        titleText: "Username già esistente",
-                        text: "Qualcunə è arrivatə prima di te :-/",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else if (err.response.status === 411)
-                    swal.fire({
-                        title: "Email già esistente",
-                        text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-                else swal.fire({
-                        titleText: "Qualcosa è andato storto :-/",
-                        text: "Aggiorna la pagina e riprova.",
-                        icon: "error",
-                        background: "#393B41",
-                        confirmButtonColor: '#F95F72'
-                    });
-            });
+            if (err.response.status === 410)
+                swal.fire({
+                    titleText: "Username già esistente",
+                    text: "Qualcunə è arrivatə prima di te :-/",
+                    icon: "error",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                });
+            else if (err.response.status === 411)
+                swal.fire({
+                    title: "Email già esistente",
+                    text: "L'indirizzo email è stato già usato. Prova a entrare con quella email.",
+                    icon: "error",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                });
+            else swal.fire({
+                    titleText: "Qualcosa è andato storto :-/",
+                    text: "Aggiorna la pagina e riprova.",
+                    icon: "error",
+                    background: "#393B41",
+                    confirmButtonColor: '#F95F72'
+                });
+        });
     }
 
     const update = (id, username, email, cambiapassword, oldpassword, newpassword, color) => {
@@ -237,6 +241,7 @@ function useProvideAuth() {
         signup,
         update,
         signout,
-        getUser
+        getUser,
+        validatePassword
     };
 }

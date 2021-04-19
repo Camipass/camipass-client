@@ -18,23 +18,42 @@
     transform: translateX(-100%); }
   100% {
     -webkit-transform: translateX(0);
-    transform: translateX(0); } }
+    transform: translateX(0);
+  }
+}
+
 @keyframes slide-right {
   0% {
     -webkit-transform: translateX(-100%);
-    transform: translateX(-100%); }
+    transform: translateX(-100%);
+  }
   100% {
     -webkit-transform: translateX(0);
-    transform: translateX(0); } }
-/* ===== SCROLLBAR STYLE ===== */
+    transform: translateX(0);
+  }
+}
+
+/**
+ * ----------------------------------------
+ * set colors and Bulma global variables
+ * ----------------------------------------
+ */
+/**
+ * ----------------------------------------
+ * scrollbar and user select style
+ * ----------------------------------------
+ */
 *::-webkit-scrollbar {
-  width: 1em; }
+  width: 1em;
+}
 
 .prevroom-side::-webkit-scrollbar {
-  width: 0.25em; }
+  width: 0.25em;
+}
 
 *::-webkit-scrollbar-track {
-  background: #202225; }
+  background: #202225;
+}
 
 *::-webkit-scrollbar-thumb {
   background: #393B41; }
@@ -50,7 +69,11 @@
   background: #fda806;
   color: #F95F72; }
 
-/* ===== NAVBAR STYLE ===== */
+/**
+ * ----------------------------------------
+ * navigation bar style
+ * ----------------------------------------
+ */
 .nav-button {
   border-radius: 2em !important;
   margin-right: 2em;
@@ -70,7 +93,11 @@
 #swal2-title, #swal2-content {
   color: #FDFFFC; }
 
-/* ===== FORM STYLE ===== */
+/**
+ * ----------------------------------------
+ * forms style
+ * ----------------------------------------
+ */
 .labelform {
   color: #FDFFFC !important;
   font-weight: bold; }
@@ -79,7 +106,11 @@
   margin: 0.2em 0.5em;
   transform: scale(0.8); }
 
-/* ===== ROOM HISTORY STYLE ===== */
+/**
+ * ----------------------------------------
+ * previous rooms section style
+ * ----------------------------------------
+ */
 .prevroom-side {
   position: fixed;
   padding: 0em 1em 2em 0 !important;
@@ -152,6 +183,11 @@
   text-align: center;
   user-select: none; }
 
+/**
+ * ----------------------------------------
+ * home carousel style
+ * ----------------------------------------
+ */
 .carouselhome {
   text-align: center;
   position: absolute;
@@ -164,6 +200,11 @@
 .slider-navigation-previous, .slider-navigation-next {
   color: #2F3136; }
 
+/**
+ * ----------------------------------------
+ * imports from Bulma
+ * ----------------------------------------
+ */
 /* Bulma Utilities */
 .button, .nav-button, .input, .textarea, .select select, .file-cta,
 .file-name {
@@ -2615,7 +2656,8 @@ table th {
   .checkbox input, .radio input {
     cursor: pointer; }
   .checkbox:hover, .radio:hover {
-    color: #363636; }
+    color: white;
+  }
   [disabled].checkbox, [disabled].radio, fieldset[disabled] .checkbox, fieldset[disabled] .radio,
   .checkbox input[disabled],
   .radio input[disabled] {
@@ -2657,7 +2699,8 @@ table th {
       .select select[multiple] option {
         padding: 0.5em 1em; }
   .select:not(.is-multiple):not(.is-loading):hover::after {
-    border-color: #363636; }
+    border-color: white;
+  }
   .select.is-white:not(:hover)::after {
     border-color: white; }
   .select.is-white select {

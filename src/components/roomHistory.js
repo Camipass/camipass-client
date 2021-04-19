@@ -1,9 +1,17 @@
 import React from "react";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useForm} from "react-hook-form";
 
 
 export default function RoomHistory({roomKeyword, onChange, onClick, prevRooms}) {
+
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        defaultValues: {
+            word: roomKeyword,
+        }
+    });
+
     const printPrevRooms = () => {
         return prevRooms.map((room, i) => {
             return <div key={i} onClick={(word) => {
@@ -15,6 +23,11 @@ export default function RoomHistory({roomKeyword, onChange, onClick, prevRooms})
         });
     }
 
+
+    const joinRoom = (data) => {
+        onClick(data.word);
+    }
+
     return (
         <div className="column is-one-third prevroom-side" id="prevroom-side">
             <div style={{
@@ -24,27 +37,38 @@ export default function RoomHistory({roomKeyword, onChange, onClick, prevRooms})
                 backgroundColor: "#202225"
             }}>
                 <div style={{textAlign: "right"}}>
-                    <div className="field columns" style={{padding: "0 0.5em"}}>
+                    <form className="field columns" style={{padding: "0 0.5em"}} onSubmit={handleSubmit(joinRoom)}>
                         <div className="column is-four-fifths">
                             <input className="input" name="newroom" id="newroom" type="text"
-                                   value={roomKeyword} placeholder="Nuova Room"
+                                   {...register("word", {
+                                       required: {
+                                           value: true,
+                                           message: "Nome room richiesto"
+                                       },
+                                       minLength: {
+                                           value: 1,
+                                           message: 'Lunghezza minima: 1 carattere'
+                                       },
+                                       pattern: {
+                                           value: /^[a-z\d\-_]+$/i,
+                                           message: 'Nome room non valido, solo caratteri alfabeto, - e _',
+                                       }
+                                   })}
+                                   placeholder="NuovaRoom"
                                    onChange={onChange}/>
+                            {errors?.word && <p className="help is-danger">{errors?.word?.message}</p>}
                         </div>
                         <div className="column is-one-fifth">
                             <div className="control has-icons-left">
                                 <input className="input button is-primary" id="sendMessage"
-                                       disabled={roomKeyword.length === 0}
-                                       type="submit" value="Room" onClick={(word) => {
-                                    word = roomKeyword;
-                                    onClick(word);
-                                }}/>
+                                       type="submit" value="Room"/>
                                 <span className="iconField is-left"
                                       style={{paddingTop: "0.25em", marginLeft: "-0.5em"}}>
                                 <FontAwesomeIcon icon={faPlus}/>
                             </span>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div style={{

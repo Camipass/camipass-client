@@ -3,6 +3,7 @@ const urlsToCache = [
     '/',
     '/login',
     '/signup',
+    '/rooms'
 ]
 
 // Install a service worker

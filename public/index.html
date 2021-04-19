@@ -51,7 +51,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const burger = document.querySelector('.navbar-burger')
         const menu = document.querySelector('.navbar-menu')
-        const item = document.querySelector('.navbar-item')
+        const items = document.querySelectorAll('.navbar-item')
         burger.addEventListener('click', function () {
             console.log('click')
             console.log(burger.classList)
@@ -60,9 +60,11 @@
             menu.classList.toggle('is-active');
         })
 
-        item.addEventListener('click', function () {
-            burger.classList.remove('is-active');
-            menu.classList.remove('is-active');
+        items.forEach(item => {
+            item.addEventListener('click', function () {
+                burger.classList.remove('is-active');
+                menu.classList.remove('is-active');
+            })
         })
     });
 </script>

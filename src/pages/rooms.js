@@ -155,7 +155,12 @@ export default function Rooms() {
                                 <span style={{color: msg.color}}>{msg.username} </span>
                                 &nbsp;<span style={{fontSize: "0.6em"}}>{msg.time}</span>
                             </div>
-                            <div>{msg.text}</div>
+                            <div style={{
+                                wordBreak: "break-all",
+                                maxWidth: "90%",
+                                marginRight: "0",
+                                marginLeft: "auto"
+                            }}>{msg.text}</div>
                         </div>
                         <div style={{textAlign: "right", paddingTop: "0.5em", userSelect: "none"}}>
                             <img src={avatar} style={{borderRadius: "50%"}} alt="User Avatar"/>
@@ -171,7 +176,10 @@ export default function Rooms() {
                                 &nbsp;<span style={{fontSize: "0.6em"}}>{msg.time}</span>
                             </div>
 
-                            <div>{msg.text}</div>
+                            <div style={{
+                                wordBreak: "break-all",
+                                maxWidth: "90%"
+                            }}>{msg.text}</div>
                         </div>
                     </div>
             );
@@ -196,10 +204,6 @@ export default function Rooms() {
             </div>
             <RoomHistory roomKeyword={roomKeyword} onClick={newRoom} prevRooms={prevRooms}
                          onChange={changeRoomKeyword}/>
-
-            {/*
-                Lista messaggi
-            */}
             <div className="column"
                  style={{display: "grid", gridTemplateRows: "auto 4em", gridTemplateColumns: "auto"}}>
                 <div className="column is-two-thirds-desktop is-offset-one-third-desktop is-12-mobile"

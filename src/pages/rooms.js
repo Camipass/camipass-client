@@ -39,7 +39,7 @@ export default function Rooms() {
             username: msg.username,
             color: msg.color,
             text: msg.text,
-            time: msg.time,
+            time: (new Date(msg.time)).toTimeString().substr(0, 5),
             info: false,
             mine: false,
         }]);
@@ -98,7 +98,7 @@ export default function Rooms() {
     const sendMessage = (event) => {
         event.preventDefault();
         if (message) {
-            socket.emit("room:chat", {keyword: currentKeyword, text: message});
+            socket.emit("room:chat", {keyword: currentKeyword, text: message, time: (new Date())});
             setMessage("");
             setMessages(current => [...displayMessages, {
                 username: auth.user.username,
